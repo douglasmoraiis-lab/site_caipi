@@ -1,34 +1,37 @@
-// src/pages/cardapio.tsx
-import React from "react";
+import React, { useState } from "react"; // Importe useState
 import Morango from "../assets/caipi_morango.png";
 import Maracuja from "../assets/caipi_maracuja.png";
 import Manjericao from "../assets/caipi_limao_majericao.png";
 import tradicional from "../assets/tradicional.png";
 import { CurrencyDollar, Plus, Star, Barbell, CheckCircle, ShoppingCartSimple } from "phosphor-react";
-import { useNavigate } from 'react-router-dom';
 
-// Define a estrutura de um item de caipirinha
 interface Caipirinha {
   nome: string;
   descricao: string;
   ingredientes: string[];
-  preco: number;
+  preco: number; // Preço base da caipirinha
   imagem: string;
 }
 
-// Define a estrutura de um item no carrinho
-interface CartItem {
+// Interface para AdicionalItem (consistente com CartSidebar)
+interface AdicionalItem {
   nome: string;
   preco: number;
-  quantidade: number;
 }
 
-// Define o tipo da prop que o componente Cardapio recebe
+interface CartItem {
+  nome: string;
+  precoBase: number;
+  precoTotalItem: number; // Preço total do item (caipirinha + adicionais)
+  quantidade: number;
+  adicionaisSelecionados?: AdicionalItem[];
+}
+
 interface CardapioProps {
   setCart: React.Dispatch<React.SetStateAction<CartItem[]>>;
+  onOpenCart: () => void;
 }
 
-// Dados das caipirinhas
 const caipirinhas: Caipirinha[] = [
   {
     nome: "Caipirinha Tradicional",
@@ -70,18 +73,17 @@ const caipirinhas: Caipirinha[] = [
   },
 ];
 
-// Dados dos adicionais
-const adicionais = [
+const adicionaisDisponiveis = [ // Renomeado para evitar conflito com a seção de adicionais
   { nome: "Hortelã Extra", preco: 2.0, icon: "🌿" },
   { nome: "Pimenta", preco: 2.5, icon: "🌶️" },
   { nome: "Gengibre", preco: 3.0, icon: "🫚" },
-  { nome: "Hortelã Pimenta", preco: 2.5, icon: "🍃" },
+  { nome: "Ramos de Alecrim", preco: 2.5, icon: "🍃" }, // Mudado para ser diferente de Hortelã Pimenta
 ];
 
 const monteSuaOpcoes = {
   bases: ["Cachaça", "Vodka", "Sake"],
   frutas: ["Limão Taiti", "Limão Siciliano", "Morango", "Maracujá", "Abacaxi", "Kiwi"],
-  adicionais: ["Hortelã", "Pimenta", "Gengibre", "Ramos de Alecrim"],
+  adicionais: ["Hortelã", "Pimenta", "Gengibre", "Ramos de Alecrim"], // Estes são apenas nomes
 };
 
 const getIngredienteEmoji = (nome: string) => {
@@ -90,28 +92,53 @@ const getIngredienteEmoji = (nome: string) => {
   if (nome.toLowerCase().includes("açúcar")) return "🍬";
   if (nome.toLowerCase().includes("gelo")) return "🧊";
   if (nome.toLowerCase().includes("morango")) return "🍓";
-  if (nome.toLowerCase().includes("manjericão")) return "🌿";
-  if (nome.toLowerCase().includes("cachaça")) return "🥃";
+  if (nome.toLowerCase().includes("manjericão") || nome.toLowerCase().includes("hortelã") || nome.toLowerCase().includes("alecrim")) return "🌿"; // Ajustado para incluir mais ervas
+  if (nome.toLowerCase().includes("cachaça") || nome.toLowerCase().includes("vodka") || nome.toLowerCase().includes("sake")) return "🥃"; // Ajustado para incluir bases
+  if (nome.toLowerCase().includes("pimenta")) return "🌶️";
+  if (nome.toLowerCase().includes("gengibre")) return "🫚";
+  if (nome.toLowerCase().includes("abacaxi")) return "🍍";
+  if (nome.toLowerCase().includes("kiwi")) return "🥝";
   return "✨";
 };
 
-const Cardapio: React.FC<CardapioProps> = ({ setCart }) => {
-  const navigate = useNavigate();
+const Cardapio: React.FC<CardapioProps> = ({ setCart, onOpenCart }) => {
+  // Estado para armazenar os adicionais selecionados temporariamente antes de adicionar ao carrinho
+  const [selectedAdicionais, setSelectedAdicionais] = useState<AdicionalItem[]>([]);
 
-  const handleSelectCaipirinha = (caipirinha: Caipirinha) => {
-    setCart((prevCart) => {
-      const existingItem = prevCart.find(item => item.nome === caipirinha.nome);
-      if (existingItem) {
-        return prevCart.map(item =>
-          item.nome === caipirinha.nome
-            ? { ...item, quantidade: item.quantidade + 1 }
-            : item
-        );
+  // Função para adicionar/remover adicionais
+  const handleToggleAdicional = (adicional: AdicionalItem) => {
+    setSelectedAdicionais(prev => {
+      if (prev.some(a => a.nome === adicional.nome)) {
+        return prev.filter(a => a.nome !== adicional.nome); // Remove se já estiver selecionado
       } else {
-        return [...prevCart, { ...caipirinha, quantidade: 1 }];
+        return [...prev, adicional]; // Adiciona se não estiver
       }
     });
-    navigate('/carrinho');
+  };
+
+  const handleSelectCaipirinha = (caipirinha: Caipirinha) => {
+    // Calcula o preço dos adicionais
+    const adicionaisPrice = selectedAdicionais.reduce((acc, current) => acc + current.preco, 0);
+    const precoTotalDoItem = caipirinha.preco + adicionaisPrice;
+
+    const newItem: CartItem = {
+      nome: caipirinha.nome,
+      precoBase: caipirinha.preco,
+      precoTotalItem: precoTotalDoItem,
+      quantidade: 1,
+      adicionaisSelecionados: selectedAdicionais.length > 0 ? [...selectedAdicionais] : undefined, // Clona para evitar mutação direta
+    };
+
+    setCart((prevCart) => {
+      // Para simplificar, vamos adicionar um novo item ao invés de agrupar se tiver adicionais
+      // ou se não for exatamente o mesmo item (com os mesmos adicionais).
+      // Se você quiser agrupar itens com os MESMOS adicionais, a lógica seria mais complexa.
+      return [...prevCart, newItem];
+    });
+
+    // Limpa os adicionais selecionados após adicionar ao carrinho
+    setSelectedAdicionais([]);
+    onOpenCart(); // Chama a função para abrir o sidebar do carrinho
   };
 
   return (
@@ -152,17 +179,40 @@ const Cardapio: React.FC<CardapioProps> = ({ setCart }) => {
                   </li>
                 ))}
               </ul>
-              <div className="flex items-center justify-between mt-auto">
+
+              {/* Seção de seleção de adicionais para ESTA caipirinha */}
+              <div className="mb-4">
+                <h3 className="text-md font-semibold text-gray-700 mb-2">Adicionais para esta Caipirinha:</h3>
+                <div className="flex flex-wrap gap-2">
+                  {adicionaisDisponiveis.map((adicional, i) => {
+                    const isSelected = selectedAdicionais.some(a => a.nome === adicional.nome);
+                    return (
+                      <button
+                        key={i}
+                        onClick={() => handleToggleAdicional(adicional)}
+                        className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border transition-colors duration-200
+                          ${isSelected ? 'bg-orange-500 text-white border-orange-500' : 'bg-gray-100 text-gray-700 border-gray-300 hover:bg-orange-100'}`
+                        }
+                      >
+                        {adicional.icon} {adicional.nome} (+R$ {adicional.preco.toFixed(2).replace(".", ",")})
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
                 <div className="flex items-center gap-2 text-xl font-bold text-orange-600">
                   <CurrencyDollar weight="bold" size={24} />
-                  <span>R$ {caipirinha.preco.toFixed(2).replace(".", ",")}</span>
+                  {/* Exibe o preço total (caipirinha + adicionais selecionados atualmente) */}
+                  <span>R$ {(caipirinha.preco + selectedAdicionais.reduce((acc, current) => acc + current.preco, 0)).toFixed(2).replace(".", ",")}</span>
                 </div>
                 <button
                   onClick={() => handleSelectCaipirinha(caipirinha)}
                   className="flex items-center gap-2 bg-orange-500 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-colors duration-300 hover:bg-orange-600"
                 >
                   <ShoppingCartSimple weight="bold" size={20} />
-                  Selecionar
+                  Adicionar ao Carrinho
                 </button>
               </div>
             </div>
@@ -170,21 +220,26 @@ const Cardapio: React.FC<CardapioProps> = ({ setCart }) => {
         ))}
       </section>
 
-      {/* Seção de Adicionais */}
+      {/* A seção de "Adicionais" separada não faz mais sentido se eles forem selecionados por caipirinha.
+          Pode-se manter uma seção "Monte a sua" ou remover esta se os adicionais forem apenas por caipirinha pronta.
+          Por enquanto, vou mantê-la, mas considere como deseja a UX.
+      */}
       <section className="mt-16">
         <h2 className="text-3xl font-extrabold text-center text-orange-500 mb-6">
-          Adicionais
+          Adicionais Disponíveis
         </h2>
+        <p className="text-center text-gray-600 mb-8">
+            Estes são os adicionais que você pode incluir em sua caipirinha.
+        </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {adicionais.map((adicional, index) => (
+          {adicionaisDisponiveis.map((adicional, index) => (
             <div
               key={index}
-              className="bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center transition-transform duration-300 ease-in-out hover:scale-105"
+              className="bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center"
             >
               <span className="text-4xl mb-2">{adicional.icon}</span>
               <h3 className="text-lg font-bold text-gray-700 mb-1">{adicional.nome}</h3>
               <p className="text-sm text-gray-500">
-                <Plus size={16} className="inline-block mr-1" />
                 <CurrencyDollar size={16} weight="bold" className="inline-block" />
                 <span> {adicional.preco.toFixed(2).replace(".", ",")}</span>
               </p>
@@ -193,7 +248,7 @@ const Cardapio: React.FC<CardapioProps> = ({ setCart }) => {
         </div>
       </section>
 
-      {/* Seção "Monte a Sua" */}
+      {/* Seção "Monte a Sua" - Mantida como está, pois é uma seção de informação */}
       <section className="mt-16 text-center">
         <h2 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-lime-400 mb-4">
           Monte a Sua Caipirinha!
