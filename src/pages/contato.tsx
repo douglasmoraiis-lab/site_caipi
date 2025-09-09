@@ -1,49 +1,54 @@
 import React from 'react';
-import { Phone, EnvelopeSimple, MapPin } from 'phosphor-react';
 
 const Contato: React.FC = () => {
-    return (
-        <section id="contato" className="py-20 px-6 bg-gray-800 text-gray-100">
-            <div className="container mx-auto text-center">
-                <h2 className="text-4xl sm:text-5xl font-extrabold mb-4 bg-gradient-to-r from-lime-400 to-orange-500 text-transparent bg-clip-text">
-                    Entre em Contato
-                </h2>
-                <p className="text-lg mb-10 max-w-xl mx-auto text-gray-300">
-                    Faça seu pedido ou tire suas dúvidas! Nossa equipe está pronta para atender você com o melhor da Caipirinha do DG.
-                </p>
+  return (
+    <div className="bg-gradient-to-br from-lime-600 to-lime-800 p-8 md:p-12 rounded-lg shadow-xl text-white max-w-2xl mx-auto my-10">
+      <h2 className="text-4xl md:text-5xl font-extrabold mb-6 text-center animate-fadeInDown">
+        Fale Conosco
+      </h2>
+      <p className="text-lg md:text-xl mb-8 text-center leading-relaxed animate-fadeInUp">
+        Adoraríamos saber de você! Seja para tornar seu evento inesquecível ou explorar parcerias saborosas, entre em contato.
+      </p>
 
-                <div className="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-12">
-                    <a
-                        href="tel:+5547996269792"
-                        className="flex items-center space-x-3 text-xl font-semibold text-lime-400 hover:text-orange-500 transition-colors duration-300"
-                    >
-                        <Phone size={32} weight="fill" />
-                        <span>(47) 99626-9792</span>
-                    </a>
-                    <a
-                        href="mailto:contato@caipirinhadodg.com.br"
-                        className="flex items-center space-x-3 text-xl font-semibold text-lime-400 hover:text-orange-500 transition-colors duration-300"
-                    >
-                        <EnvelopeSimple size={32} weight="fill" />
-                        <span>contato@caipirinhadodg.com.br</span>
-                    </a>
-                    <a
-                        href="https://goo.gl/maps/..." // Substitua pelo link do mapa
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center space-x-3 text-xl font-semibold text-lime-400 hover:text-orange-500 transition-colors duration-300"
-                    >
-                        <MapPin size={32} weight="fill" />
-                        <span>Nosso Endereço</span>
-                    </a>
-                </div>
+      <div className="space-y-6">
+        <div className="flex items-center justify-center p-4 bg-lime-700/50 rounded-md shadow-md animate-fadeInLeft">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-7 w-7 mr-3 text-lime-200"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-9 13h9a2 2 0 002-2V7a2 2 0 00-2-2H3a2 2 0 00-2 2v12a2 2 0 002 2z"
+            />
+          </svg>
+          <span className="text-xl font-medium">Email: <a href="mailto:contato@caipirinhadodg.com" className="underline hover:text-lime-200 transition-colors">contato@caipirinhadodg.com</a></span>
+        </div>
 
-                <p className="mt-12 text-gray-500 text-sm max-w-md mx-auto">
-                    Aproveite para nos seguir nas redes sociais e ficar por dentro das novidades!
-                </p>
-            </div>
-        </section>
-    );
+        <div className="flex items-center justify-center p-4 bg-lime-700/50 rounded-md shadow-md animate-fadeInRight">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-7 w-7 mr-3 text-lime-200"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+            />
+          </svg>
+          <span className="text-xl font-medium">Telefone: <a href="tel:+5511999999999" className="underline hover:text-lime-200 transition-colors">(11) 99999-9999</a></span>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Contato;

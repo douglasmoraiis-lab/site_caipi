@@ -1,19 +1,9 @@
 import React from "react";
-import { ShoppingBagOpen, XCircle, Trash } from "phosphor-react";
-import { AnimatePresence, motion } from "framer-motion";
-
-// Nova interface para AdicionalItem (movida para cá para consistência)
-interface AdicionalItem {
-  nome: string;
-  preco: number;
-}
 
 interface CartItem {
   nome: string;
-  precoBase: number;
-  precoTotalItem: number; // Preço total do item (caipirinha + adicionais)
+  preco: number;
   quantidade: number;
-  adicionaisSelecionados?: AdicionalItem[];
 }
 
 interface CartSidebarProps {
@@ -23,139 +13,68 @@ interface CartSidebarProps {
   onClose: () => void;
 }
 
-const CartSidebar: React.FC<CartSidebarProps> = ({
-  cart,
-  setCart,
-  isOpen,
-  onClose,
-}) => {
+const CartSidebar: React.FC<CartSidebarProps> = ({ cart, setCart, isOpen, onClose }) => {
   const handleRemoveItem = (itemToRemove: CartItem) => {
+    setCart((prevCart) => prevCart.filter((item) => item.nome !== itemToRemove.nome));
+  };
+
+  const handleUpdateQuantity = (itemToUpdate: CartItem, newQuantity: number) => {
+    if (newQuantity <= 0) {
+      handleRemoveItem(itemToUpdate);
+      return;
+    }
     setCart((prevCart) =>
-      prevCart.filter((item) => item.nome !== itemToRemove.nome)
+      prevCart.map((item) =>
+        item.nome === itemToUpdate.nome ? { ...item, quantidade: newQuantity } : item
+      )
     );
   };
 
-  // Calcula o total somando precoTotalItem * quantidade de cada item
-  const total = cart.reduce(
-    (acc, item) => acc + item.precoTotalItem * item.quantidade,
-    0
-  );
+  const total = cart.reduce((sum, item) => sum + item.preco * item.quantidade, 0);
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
-          onClick={onClose}
-        >
-          <motion.div
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ type: "spring", damping: 30, stiffness: 400 }}
-            // Ajustes de responsividade: w-full em mobile, md:w-96 em desktop
-            className="fixed right-0 top-0 h-full w-full md:w-96 bg-white shadow-lg z-50 p-6 flex flex-col font-sans"
-            onClick={(e: React.MouseEvent) => e.stopPropagation()}
-          >
-            <div className="flex justify-between items-center pb-4 border-b border-gray-200 mb-6">
-              <div className="flex items-center gap-3 text-lime-600">
-                <ShoppingBagOpen size={32} weight="light" />
-                <h2 className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-lime-400 to-orange-500">
-                  Seu Carrinho
-                </h2>
-              </div>
-              <button
-                onClick={onClose}
-                className="text-gray-400 hover:text-red-500 transition-colors"
-              >
-                <XCircle size={28} weight="bold" />
-              </button>
-            </div>
-
-            {cart.length === 0 ? (
-              <div className="text-center mt-10 flex-grow flex flex-col justify-center items-center">
-                <p className="text-gray-600 mb-4 text-lg">
-                  Seu carrinho está vazio.
-                </p>
-                <p className="text-gray-500 text-sm flex items-center gap-2">
-                  <XCircle size={18} />
-                  <span>Adicione uma caipirinha deliciosa!</span>
-                </p>
-              </div>
-            ) : (
-              <>
-                <ul className="flex-grow space-y-4 overflow-y-auto pr-2">
-                  {cart.map((item, index) => (
-                    <li
-                      key={index}
-                      className="flex flex-col p-3 bg-gray-50 rounded-lg"
-                    >
-                      <div className="flex items-center justify-between w-full">
-                        <div className="flex flex-col items-start">
-                          <span className="text-lg font-semibold text-gray-800">
-                            {item.nome}
-                          </span>
-                          <span className="text-gray-500 text-sm">
-                            Qtd: {item.quantidade}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className="text-orange-500 font-bold">
-                            R${" "}
-                            {item.precoTotalItem.toFixed(2).replace(".", ",")}
-                          </span>
-                          <button
-                            onClick={() => handleRemoveItem(item)}
-                            className="text-gray-400 hover:text-red-500 transition-colors"
-                          >
-                            <Trash size={20} />
-                          </button>
-                        </div>
-                      </div>
-                      {item.adicionaisSelecionados &&
-                        item.adicionaisSelecionados.length > 0 && (
-                          <div className="mt-2 text-sm text-gray-600 pl-4">
-                            <p className="font-medium">Adicionais:</p>
-                            <ul className="list-disc list-inside">
-                              {item.adicionaisSelecionados.map(
-                                (adicional, i) => (
-                                  <li key={i}>
-                                    {adicional.nome} (+R${" "}
-                                    {adicional.preco
-                                      .toFixed(2)
-                                      .replace(".", ",")}
-                                    )
-                                  </li>
-                                )
-                              )}
-                            </ul>
-                          </div>
-                        )}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mt-6 pt-4 border-t border-gray-200">
-                  <div className="flex justify-between items-center font-bold text-xl mb-4">
-                    <span>Total</span>
-                    <span className="text-lime-600">
-                      R$ {total.toFixed(2).replace(".", ",")}
-                    </span>
-                  </div>
-
-                  <button className="w-full bg-orange-500 text-white font-bold py-3 px-4 rounded-lg shadow-md transition-colors duration-300 hover:bg-orange-600">
-                    Finalizar Compra
-                  </button>
+    <div
+      className={`fixed top-0 right-0 h-full w-80 bg-gray-800 shadow-xl transform transition-transform duration-300 ease-in-out z-50 ${
+        isOpen ? "translate-x-0" : "translate-x-full"
+      }`}
+    >
+      <div className="p-6 flex flex-col h-full">
+        <div className="flex justify-between items-center border-b border-gray-700 pb-4 mb-4">
+          <h2 className="text-2xl font-bold text-white">Seu Carrinho</h2>
+          <button onClick={onClose} className="text-gray-400 hover:text-white transition-colors">
+            ✖
+          </button>
+        </div>
+        <div className="flex-grow overflow-y-auto pr-2">
+          {cart.length === 0 ? (
+            <p className="text-center text-gray-500">Seu carrinho está vazio.</p>
+          ) : (
+            cart.map((item, index) => (
+              <div key={index} className="flex items-center justify-between bg-gray-700 rounded-lg p-3 mb-2">
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-white">{item.nome}</h3>
+                  <p className="text-sm text-gray-400">R${item.preco.toFixed(2)}</p>
                 </div>
-              </>
-            )}
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+                <div className="flex items-center">
+                  <button onClick={() => handleUpdateQuantity(item, item.quantidade - 1)}>-</button>
+                  <span className="px-3">{item.quantidade}</span>
+                  <button onClick={() => handleUpdateQuantity(item, item.quantidade + 1)}>+</button>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+        <div className="mt-4 border-t border-gray-700 pt-4">
+          <div className="flex justify-between items-center mb-4">
+            <span className="text-xl font-bold text-white">Total:</span>
+            <span className="text-xl font-bold text-yellow-400">R${total.toFixed(2)}</span>
+          </div>
+          <button className="w-full bg-yellow-500 py-3 rounded-xl" disabled={cart.length === 0}>
+            Finalizar Compra
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 

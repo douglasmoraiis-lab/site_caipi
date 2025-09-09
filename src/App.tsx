@@ -1,15 +1,8 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import Navbar from "./components/nav";
-import Home from "./pages/Home";
-import Sobre from "./pages/Sobre";
-import Contato from "./pages/contato";
 import Cardapio from "./pages/cardapio";
-// Remova a importação de Carrinho, pois ele não será mais uma página
-// import Carrinho from './pages/carrinho';
-
-// Importa o novo componente CartSidebar
+import Contato from "./pages/contato";
+import Sobre from "./components/sobreC";
+import Home from "./pages/Home";
 import CartSidebar from "./components/CarSideBar";
 
 interface CartItem {
@@ -20,46 +13,40 @@ interface CartItem {
 
 const App: React.FC = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [isCartOpen, setIsCartOpen] = useState<boolean>(false); // Novo estado para controlar a visibilidade do sidebar
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState("home");
 
-  const handleOpenCart = () => setIsCartOpen(true);
-  const handleCloseCart = () => setIsCartOpen(false);
+  const renderPage = () => {
+    switch (currentPage) {
+      case "sobre": return <Sobre />;
+      case "contato": return <Contato />;
+      case "cardapio": return <Cardapio setCart={setCart} onOpenCart={() => setIsCartOpen(true)} />;
+      default: return <Home />;
+    }
+  };
 
   return (
-    <Router>
-      <div className="bg-gray-900 text-gray-200 font-sans min-h-screen flex flex-col">
-        <Navbar onOpenCart={handleOpenCart} cartItemCount={cart.length} />{" "}
-        {/* Passa a função e a contagem de itens */}
-        <main className="flex-grow min-h-[80vh]">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/sobre" element={<Sobre />} />
-            <Route path="/contato" element={<Contato />} />
-            {/* Passa a função setCart E a função para abrir o carrinho para o Cardapio */}
-            <Route
-              path="/cardapio"
-              element={
-                <Cardapio setCart={setCart} onOpenCart={handleOpenCart} />
-              }
-            />
-            {/* Remova a rota do carrinho, pois ele será um sidebar */}
-            {/* <Route path="/carrinho" element={<Carrinho cart={cart} setCart={setCart} />} /> */}
-          </Routes>
-        </main>
-        <footer className="w-full py-8 text-center bg-gray-900 border-t border-gray-700">
-          <p className="text-sm text-gray-400">
-            © 2025 Caipirinha do DG. Todos os direitos reservados.
-          </p>
-        </footer>
-        {/* Renderiza o CartSidebar aqui */}
-        <CartSidebar
-          cart={cart}
-          setCart={setCart}
-          isOpen={isCartOpen}
-          onClose={handleCloseCart}
-        />
-      </div>
-    </Router>
+    <div className="bg-gray-900 text-gray-200 min-h-screen flex flex-col">
+      {/* Navbar simples */}
+      <nav className="p-4 flex justify-between bg-gray-800">
+        <h1 className="text-2xl font-bold cursor-pointer" onClick={() => setCurrentPage("home")}>
+          Caipirinha do DG
+        </h1>
+        <div className="space-x-4">
+          <button onClick={() => setCurrentPage("home")}>Home</button>
+          <button onClick={() => setCurrentPage("sobre")}>Sobre</button>
+          <button onClick={() => setCurrentPage("contato")}>Contato</button>
+          <button onClick={() => setCurrentPage("cardapio")}>Cardápio</button>
+          <button onClick={() => setIsCartOpen(true)}>Carrinho ({cart.length})</button>
+        </div>
+      </nav>
+
+      <main className="flex-grow">{renderPage()}</main>
+
+      <footer className="p-4 bg-gray-800 text-center">© 2025 Caipirinha do DG</footer>
+
+      <CartSidebar cart={cart} setCart={setCart} isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+    </div>
   );
 };
 
