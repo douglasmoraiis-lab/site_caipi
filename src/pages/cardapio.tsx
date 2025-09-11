@@ -1,9 +1,18 @@
 import React, { useState } from "react";
 // Importações de imagens (mantive as suas, mas observe as sugestões para adicionais)
+//Caipirinhas
 import caipiroskaM from "../assets/caipi_morango.png";
-import limao from "../assets/tradicional.png";
-import maracuja from "../assets/caipi_maracuja.png";
-import limao_manjericao from "../assets/caipi_limao_majericao.png";
+import Caipi_limao from "../assets/tradicional.png";
+import Caipi_maracuja from "../assets/caipi_maracuja.png";
+import Caipi_limao_manjericao from "../assets/caipi_limao_majericao.png";
+import Caipi_caju from "../assets/caipi_caju.png";
+import Caipi_uva from "../assets/caipi_uva.png";
+import Caipi_abacaxi from "../assets/caipi_abacaxi.png";
+import Caipi_kiwi from "../assets/caipi_kiwi.png";
+import Caipi_framboesa from "../assets/caipi_framboesa.png";  
+
+
+//Batidas
 import batidaCoco from "../assets/batidaCoco.png";
 import batidaChoco from "../assets/batida_choco.png";
 import batidaMaracuja from "../assets/batida_marac.png";
@@ -18,10 +27,15 @@ import batidaMaracujaLei from "../assets/batida_marac_leit.png";
 import MorangocomLeiteCondensado from "../assets/batida_morango_conden.png";
 
 // Sugestão: Imagens específicas para adicionais
-import adicionalMorango from "../assets/adicional_morango.png"; // Crie esta imagem!
-import adicionalLimao from "../assets/adicional_limao.png"; // Crie esta imagem!
-import adicionalManjericao from "../assets/adicionao_manjericao.png"; // Crie esta imagem!
-import adicionalCachaca from "../assets/adicional_cachaça.png"; // Crie esta imagem!
+import adicionalMorango from "../assets/adicional_morango.png"; 
+import adicionalLimao from "../assets/adicional_limao.png"; 
+import adicionalManjericao from "../assets/adicionao_manjericao.png"; 
+import adicionalCachaca from "../assets/adicional_cachaça.png"; 
+import adicionalKiwi from "../assets/adicional_kiwi.png";
+import adicionalAbacaxi from "../assets/adicional_abacaxi.png";
+import adicionalAmora from "../assets/adicional_amora.png";
+import adicionalPessego from "../assets/adicional_pessego.png";
+
 
 interface CartItem {
   nome: string;
@@ -46,51 +60,91 @@ interface CardapioProps {
 
 const menuItems: MenuItem[] = [
   // Caipirinhas
+  const caipirinhas = [
   {
     nome: "Caipirinha Tradicional",
     descricao: "Clássica e revigorante com limão Taiti e cachaça premium.",
     preco: 15,
-    imagem: limao,
+    imagem: Caipi_limao,
     categoria: "caipirinhas",
   },
   {
     nome: "Caipiroska de Morango",
-    descricao:
-      "Morango fresco macerado, vodka de alta qualidade e um toque de limão.",
+    descricao: "Morango fresco macerado, vodka de alta qualidade e um toque de limão.",
     preco: 18,
     imagem: caipiroskaM,
     categoria: "caipirinhas",
   },
   {
     nome: "Caipirinha de Maracujá",
-    descricao:
-      "A combinação perfeita entre o doce e o azedo do maracujá com cachaça.",
+    descricao: "A combinação perfeita entre o doce e o azedo do maracujá com cachaça.",
     preco: 17.5,
-    imagem: maracuja,
+    imagem: Caipi_maracuja,
     categoria: "caipirinhas",
   },
   {
-    nome: "Caipirinha de Limão com Manjericão",
-    descricao:
-      "Uma explosão de frescor, limão Taiti e folhas de manjericão aromático.",
+    nome: "Caipi Limão e Manjericão",
+    descricao: "Explosão de frescor, limão e folhas de manjericão.",
     preco: 19,
-    imagem: limao_manjericao,
+    imagem: Caipi_limao_manjericao,
     categoria: "caipirinhas",
   },
   {
     nome: "Caipirinha de Caju",
     descricao: "Doce e suculento caju, uma versão tropical e deliciosa.",
     preco: 18,
-    imagem: "https://via.placeholder.com/150/FFD700/000000?text=Caju",
+    imagem: Caipi_caju,
     categoria: "caipirinhas",
-  }, // Manter placeholder ou criar imagem
+  },
   {
     nome: "Caipirinha de Uva",
     descricao: "Uvas frescas maceradas, para um sabor suave e adocicado.",
     preco: 19.5,
-    imagem: "",
+    imagem: Caipi_uva,
     categoria: "caipirinhas",
-  }, // Manter placeholder ou criar imagem
+  },
+  {
+    nome: "Caipirinha de Abacaxi com Hortelã",
+    descricao: "Abacaxi fresco e folhas de hortelã para uma refrescância tropical.",
+    preco: 18,
+    imagem: Caipi_abacaxi,
+    categoria: "caipirinhas",
+  },
+  {
+    nome: "Caipirinha de Kiwi",
+    descricao: "Kiwi macerado com cachaça, doce na medida certa e refrescante.",
+    preco: 18.5,
+    imagem: Caipi_kiwi,
+    categoria: "caipirinhas",
+  },
+  {
+    nome: "Caipirinha de Framboesa",
+    descricao: "Framboesas frescas com cachaça, para um sabor frutado e marcante.",
+    preco: 19,
+    imagem: Caipi_framboesa,
+    categoria: "caipirinhas",
+  },
+  {
+    nome: "Caipirinha de Amora",
+    descricao: "Amoras frescas maceradas, equilíbrio perfeito entre doce e azedo.",
+    preco: 19,
+    imagem: Caipi_amora,
+    categoria: "caipirinhas",
+  },
+  {
+    nome: "Caipirinha de Pêssego",
+    descricao: "Pêssego suculento combinado com cachaça para uma caipirinha doce e aromática.",
+    preco: 18.5,
+    imagem: Caipi_pessego,
+    categoria: "caipirinhas",
+  },
+  {
+    nome: "Caipirinha de Manga",
+    descricao: "Manga madura e doce, ideal para uma bebida tropical irresistível.",
+    preco: 19,
+    imagem: Caipi_manga,
+    categoria: "caipirinhas",
+  },
 
   // Batidas
   {
@@ -139,7 +193,7 @@ const menuItems: MenuItem[] = [
     categoria: "batidas",
   },
   {
-    nome: "Batida de Abacaxi com Hortelã",
+    nome: "Batida de Abaca/ e Hortelã",
     descricao: "Sabor exótico do abacaxi com o frescor da hortelã.",
     preco: 22.5,
     imagem: batidaAbacaxiHort,
@@ -167,7 +221,7 @@ const menuItems: MenuItem[] = [
     categoria: "batidas",
   },
   {
-    nome: "Batida Morango com Leite Condensado",
+    nome: "Batida Morango Cremoso",
     descricao: "Sabor exótico do morango com o cremoso leite condensado.",
     preco: 22.5,
     imagem: MorangocomLeiteCondensado,
@@ -205,12 +259,48 @@ const menuItems: MenuItem[] = [
   },
   {
     nome: "Shot de Cachaça Extra",
-    descricao: "Um shot extra da nossa cachaça premium.",
+    descricao: "Um shot extra da nossa cachaça premium para um toque mais forte.",
     preco: 8,
     imagem: adicionalCachaca,
     categoria: "adicionais",
   },
+    {
+    nome: "Adicional de Kiwi",
+    descricao: "Adicione um toque refrescante de kiwi à sua caipirinha.",
+    preco: 5,
+    imagem: adicionalKiwi, 
+    categoria: "adicionais",
+  },
+  {
+    nome: "Adicional de Morango",
+    descricao: "Dê mais sabor com morangos frescos na sua caipirinha.",
+    preco: 5,
+    imagem: adicionalMorango,
+    categoria: "adicionais",
+  },
+  {
+    nome: "Adicional de Abacaxi",
+    descricao: "Um toque tropical com pedaços de abacaxi delicioso na sua bebida.",
+    preco: 5,
+    imagem: adicionalAbacaxi,
+    categoria: "adicionais",
+  },
+  {
+    nome: "Adicional de Amora",
+    descricao: "Adicione amoras frescas para um sabor único e frutado.",
+    preco: 5,
+    imagem: adicionalAmora,
+    categoria: "adicionais",
+  },
+  {
+  nome: "Adicional de Pêssego",
+  descricao: "Adicione pedaços suculentos de pêssego para um sabor doce e refrescante.",
+  preco: 5,
+  imagem: adicionalPessego, 
+  categoria: "adicionais",
+}
 ];
+
 
 const Cardapio: React.FC<CardapioProps> = ({ setCart, onOpenCart }) => {
   const [activeTab, setActiveTab] = useState<CategoryType>("caipirinhas");
@@ -243,20 +333,19 @@ const Cardapio: React.FC<CardapioProps> = ({ setCart, onOpenCart }) => {
       </h2>
 
       {/* Navegação por abas */}
-      <div className="flex justify-center mb-12 space-x-4 md:space-x-8 flex-wrap">
+      <div className="flex flex-wrap justify-center gap-4 md:gap-8 mb-12">
         {categories.map((category) => (
           <button
             key={category.id}
             onClick={() => setActiveTab(category.id)}
             className={`
-              py-3 px-6 md:px-8 text-lg md:text-xl font-bold rounded-full transition-all duration-300 ease-in-out
-              ${
-                activeTab === category.id
-                  ? "bg-lime-600 text-white shadow-xl transform scale-105"
-                  : "bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white"
-              }
-            `}
-            // Adicionado um pequeno efeito ao clicar na aba
+        py-3 px-6 md:px-8 text-lg md:text-xl font-bold rounded-full transition-all duration-300 ease-in-out
+        ${
+          activeTab === category.id
+            ? "bg-lime-600 text-white shadow-xl transform scale-105"
+            : "bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white"
+        }
+      `}
             aria-current={activeTab === category.id ? "page" : undefined}
           >
             {category.name}
