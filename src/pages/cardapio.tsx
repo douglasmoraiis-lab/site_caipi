@@ -1,22 +1,27 @@
 import React, { useState } from "react";
-import caipiroskaM from '../assets/caipi_morango.png';
-import limao from '../assets/tradicional.png';
-import maracuja from '../assets/caipi_maracuja.png';
-import limao_manjericao from '../assets/caipi_limao_majericao.png';
-import batidaCoco from '../assets/batidaCoco.png';
-import batidaChoco from '../assets/batida_choco.png';
-import batidaMaracuja from '../assets/batida_marac.png';
-import batidaAbacaxi from '../assets/batida_abacaxi.png';
-import batidaMorang from '../assets/batida_moran.png';
-import batidaAmendoim from '../assets/batida_amendo.png';
-import batidaAbacaxiHort from '../assets/batidaAba_Hote.png';
-import batidaLaranja from '../assets/batida_laranj.png';
-import batidaUva from '../assets/batida_uva.png';
-import batidaBananaAcai from '../assets/batida_bana_acai.png';
-import batidaMaracujaLei from '../assets/batida_marac_leit.png';
-import MorangocomLeiteCondensado  from '../assets/batida_morango_conden.png';
-import frutaMorango from '../assets/caipi_limao_majericao.png';
-import frutaLimao from '../assets/caipi_limao_majericao.png';
+// Importações de imagens (mantive as suas, mas observe as sugestões para adicionais)
+import caipiroskaM from "../assets/caipi_morango.png";
+import limao from "../assets/tradicional.png";
+import maracuja from "../assets/caipi_maracuja.png";
+import limao_manjericao from "../assets/caipi_limao_majericao.png";
+import batidaCoco from "../assets/batidaCoco.png";
+import batidaChoco from "../assets/batida_choco.png";
+import batidaMaracuja from "../assets/batida_marac.png";
+import batidaAbacaxi from "../assets/batida_abacaxi.png";
+import batidaMorang from "../assets/batida_moran.png";
+import batidaAmendoim from "../assets/batida_amendo.png";
+import batidaAbacaxiHort from "../assets/batidaAba_Hote.png";
+import batidaLaranja from "../assets/batida_laranj.png";
+import batidaUva from "../assets/batida_uva.png";
+import batidaBananaAcai from "../assets/batida_bana_acai.png";
+import batidaMaracujaLei from "../assets/batida_marac_leit.png";
+import MorangocomLeiteCondensado from "../assets/batida_morango_conden.png";
+
+// Sugestão: Imagens específicas para adicionais
+import adicionalMorango from "../assets/adicional_morango.png"; // Crie esta imagem!
+import adicionalLimao from "../assets/adicional_limao.png"; // Crie esta imagem!
+import adicionalManjericao from "../assets/adicionao_manjericao.png"; // Crie esta imagem!
+import adicionalCachaca from "../assets/adicional_cachaça.png"; // Crie esta imagem!
 
 interface CartItem {
   nome: string;
@@ -24,7 +29,7 @@ interface CartItem {
   quantidade: number;
 }
 
-type CategoryType = 'caipirinhas' | 'batidas' | 'adicionais';
+type CategoryType = "caipirinhas" | "batidas" | "adicionais";
 
 interface MenuItem {
   nome: string;
@@ -41,43 +46,183 @@ interface CardapioProps {
 
 const menuItems: MenuItem[] = [
   // Caipirinhas
-  { nome: "Caipirinha Tradicional", descricao: "Clássica e revigorante com limão Taiti e cachaça premium.", preco: 15, imagem: limao, categoria: 'caipirinhas' },
-  { nome: "Caipiroska de Morango", descricao: "Morango fresco macerado, vodka de alta qualidade e um toque de limão.", preco: 18, imagem: caipiroskaM, categoria: 'caipirinhas' },
-  { nome: "Caipirinha de Maracujá", descricao: "A combinação perfeita entre o doce e o azedo do maracujá com cachaça.", preco: 17.5, imagem: maracuja, categoria: 'caipirinhas' },
-  { nome: "Caipirinha de Limão com Manjericão", descricao: "Uma explosão de frescor, limão Taiti e folhas de manjericão aromático.", preco: 19, imagem: limao_manjericao, categoria: 'caipirinhas' },
-  { nome: "Caipirinha de Caju", descricao: "Doce e suculento caju, uma versão tropical e deliciosa.", preco: 18, imagem: 'https://via.placeholder.com/150/FFD700/000000?text=Caju', categoria: 'caipirinhas' },
-  { nome: "Caipirinha de Uva", descricao: "Uvas frescas maceradas, para um sabor suave e adocicado.", preco: 19.5, imagem: 'https://via.placeholder.com/150/800080/FFFFFF?text=Uva', categoria: 'caipirinhas' },
+  {
+    nome: "Caipirinha Tradicional",
+    descricao: "Clássica e revigorante com limão Taiti e cachaça premium.",
+    preco: 15,
+    imagem: limao,
+    categoria: "caipirinhas",
+  },
+  {
+    nome: "Caipiroska de Morango",
+    descricao:
+      "Morango fresco macerado, vodka de alta qualidade e um toque de limão.",
+    preco: 18,
+    imagem: caipiroskaM,
+    categoria: "caipirinhas",
+  },
+  {
+    nome: "Caipirinha de Maracujá",
+    descricao:
+      "A combinação perfeita entre o doce e o azedo do maracujá com cachaça.",
+    preco: 17.5,
+    imagem: maracuja,
+    categoria: "caipirinhas",
+  },
+  {
+    nome: "Caipirinha de Limão com Manjericão",
+    descricao:
+      "Uma explosão de frescor, limão Taiti e folhas de manjericão aromático.",
+    preco: 19,
+    imagem: limao_manjericao,
+    categoria: "caipirinhas",
+  },
+  {
+    nome: "Caipirinha de Caju",
+    descricao: "Doce e suculento caju, uma versão tropical e deliciosa.",
+    preco: 18,
+    imagem: "https://via.placeholder.com/150/FFD700/000000?text=Caju",
+    categoria: "caipirinhas",
+  }, // Manter placeholder ou criar imagem
+  {
+    nome: "Caipirinha de Uva",
+    descricao: "Uvas frescas maceradas, para um sabor suave e adocicado.",
+    preco: 19.5,
+    imagem: "",
+    categoria: "caipirinhas",
+  }, // Manter placeholder ou criar imagem
 
   // Batidas
-  { nome: "Batida de Coco", descricao: "Cremosa e refrescante, com leite de coco e cachaça ou vodka.", preco: 22, imagem: batidaCoco, categoria: 'batidas' },
-  { nome: "Batida de Morango", descricao: "Cremosa e refrescante, com leite de morango e cachaça ou vodka.", preco: 22, imagem: batidaMorang, categoria: 'batidas' },
-  { nome: "Batida de Abacaxi", descricao: "Cremosa e refrescante, com leite de abacaxi e cachaça ou vodka.", preco: 22, imagem: batidaAbacaxi, categoria: 'batidas' },
-  { nome: "Batida de Chocolate", descricao: "Cremosa e refrescante, com leite de chocolate e cachaça ou vodka.", preco: 22, imagem: batidaChoco, categoria: 'batidas' },
-  { nome: "Batida de Maracujá", descricao: "Tropical e vibrante, perfeita para quem ama um toque azedinho.", preco: 21, imagem: batidaMaracuja, categoria: 'batidas' },
-  { nome: "Batida de Amendoim", descricao: "Cremosa e com sabor marcante de amendoim, uma delícia!.", preco: 23, imagem: batidaAmendoim, categoria: 'batidas' },
-  { nome: "Batida de Abacaxi com Hortelã", descricao: "Sabor exótico do abacaxi com o frescor da hortelã.", preco: 22.5, imagem: batidaAbacaxiHort, categoria: 'batidas' },
-  { nome: "Batida de Banana Açaí", descricao: "Sabor exótico da banana com o frescor do açaí.", preco: 22.5, imagem: batidaBananaAcai, categoria: 'batidas' },
-  { nome: "Batida de Uva", descricao: "Sabor exótico da uva com o frescor da hortelã.", preco: 22.5, imagem: batidaUva, categoria: 'batidas' },
-  { nome: "Batida de laranja", descricao: "Sabor exótico da laranja com o frescor da hortelã.", preco: 22.5, imagem: batidaLaranja, categoria: 'batidas' },
-  { nome: "Batida Morango com Leite Condensado", descricao: "Sabor exótico do morango com o cremoso leite condensado.", preco: 22.5, imagem: MorangocomLeiteCondensado, categoria: 'batidas' },
-  { nome: "Batida Maracujá com Leite", descricao: "Sabor exótico do maracujá com o cremoso leite condensado.", preco: 22.5, imagem: batidaMaracujaLei, categoria: 'batidas' },
+  {
+    nome: "Batida de Coco",
+    descricao: "Cremosa e refrescante, com leite de coco e cachaça ou vodka.",
+    preco: 22,
+    imagem: batidaCoco,
+    categoria: "batidas",
+  },
+  {
+    nome: "Batida de Morango",
+    descricao:
+      "Cremosa e refrescante, com leite de morango e cachaça ou vodka.",
+    preco: 22,
+    imagem: batidaMorang,
+    categoria: "batidas",
+  },
+  {
+    nome: "Batida de Abacaxi",
+    descricao:
+      "Cremosa e refrescante, com leite de abacaxi e cachaça ou vodka.",
+    preco: 22,
+    imagem: batidaAbacaxi,
+    categoria: "batidas",
+  },
+  {
+    nome: "Batida de Chocolate",
+    descricao:
+      "Cremosa e refrescante, com leite de chocolate e cachaça ou vodka.",
+    preco: 22,
+    imagem: batidaChoco,
+    categoria: "batidas",
+  },
+  {
+    nome: "Batida de Maracujá",
+    descricao: "Tropical e vibrante, perfeita para quem ama um toque azedinho.",
+    preco: 21,
+    imagem: batidaMaracuja,
+    categoria: "batidas",
+  },
+  {
+    nome: "Batida de Amendoim",
+    descricao: "Cremosa e com sabor marcante de amendoim, uma delícia!.",
+    preco: 23,
+    imagem: batidaAmendoim,
+    categoria: "batidas",
+  },
+  {
+    nome: "Batida de Abacaxi com Hortelã",
+    descricao: "Sabor exótico do abacaxi com o frescor da hortelã.",
+    preco: 22.5,
+    imagem: batidaAbacaxiHort,
+    categoria: "batidas",
+  },
+  {
+    nome: "Batida de Banana Açaí",
+    descricao: "Sabor exótico da banana com o frescor do açaí.",
+    preco: 22.5,
+    imagem: batidaBananaAcai,
+    categoria: "batidas",
+  },
+  {
+    nome: "Batida de Uva",
+    descricao: "Sabor exótico da uva com o frescor da hortelã.",
+    preco: 22.5,
+    imagem: batidaUva,
+    categoria: "batidas",
+  },
+  {
+    nome: "Batida de laranja",
+    descricao: "Sabor exótico da laranja com o frescor da hortelã.",
+    preco: 22.5,
+    imagem: batidaLaranja,
+    categoria: "batidas",
+  },
+  {
+    nome: "Batida Morango com Leite Condensado",
+    descricao: "Sabor exótico do morango com o cremoso leite condensado.",
+    preco: 22.5,
+    imagem: MorangocomLeiteCondensado,
+    categoria: "batidas",
+  },
+  {
+    nome: "Batida Maracujá com Leite",
+    descricao: "Sabor exótico do maracujá com o cremoso leite condensado.",
+    preco: 22.5,
+    imagem: batidaMaracujaLei,
+    categoria: "batidas",
+  },
 
-  // Adicionais (Frutas, etc.)
-  { nome: "Adicional de Morango", descricao: "Porção extra de morangos frescos para sua bebida.", preco: 5, imagem: frutaMorango, categoria: 'adicionais' },
-  { nome: "Adicional de Limão", descricao: "Mais rodelas de limão para intensificar o sabor.", preco: 3, imagem: frutaLimao, categoria: 'adicionais' },
-  { nome: "Adicional de Manjericão", descricao: "Folhas extras de manjericão para um aroma ainda mais fresco.", preco: 4, imagem: 'https://via.placeholder.com/150/228B22/FFFFFF?text=Manjericão', categoria: 'adicionais' },
-  { nome: "Shot de Cachaça Extra", descricao: "Um shot extra da nossa cachaça premium.", preco: 8, imagem: 'https://via.placeholder.com/150/8B4513/FFFFFF?text=Cachaça', categoria: 'adicionais' },
+  // Adicionais (usando as novas importações de imagens)
+  {
+    nome: "Adicional de Morango",
+    descricao: "Porção extra de morangos frescos para sua bebida.",
+    preco: 5,
+    imagem: adicionalMorango,
+    categoria: "adicionais",
+  },
+  {
+    nome: "Adicional de Limão",
+    descricao: "Mais rodelas de limão para intensificar o sabor.",
+    preco: 3,
+    imagem: adicionalLimao,
+    categoria: "adicionais",
+  },
+  {
+    nome: "Adicional de Manjericão",
+    descricao: "Folhas extras de manjericão para um aroma ainda mais fresco.",
+    preco: 4,
+    imagem: adicionalManjericao,
+    categoria: "adicionais",
+  },
+  {
+    nome: "Shot de Cachaça Extra",
+    descricao: "Um shot extra da nossa cachaça premium.",
+    preco: 8,
+    imagem: adicionalCachaca,
+    categoria: "adicionais",
+  },
 ];
 
 const Cardapio: React.FC<CardapioProps> = ({ setCart, onOpenCart }) => {
-  const [activeTab, setActiveTab] = useState<CategoryType>('caipirinhas'); // Estado para controlar a aba ativa
+  const [activeTab, setActiveTab] = useState<CategoryType>("caipirinhas");
 
   const handleAddToCart = (menuItem: MenuItem) => {
     setCart((prev: CartItem[]) => {
       const existing = prev.find((item) => item.nome === menuItem.nome);
       if (existing) {
         return prev.map((item) =>
-          item.nome === menuItem.nome ? { ...item, quantidade: item.quantidade + 1 } : item
+          item.nome === menuItem.nome
+            ? { ...item, quantidade: item.quantidade + 1 }
+            : item
         );
       }
       return [...prev, { ...menuItem, quantidade: 1 }];
@@ -86,9 +231,9 @@ const Cardapio: React.FC<CardapioProps> = ({ setCart, onOpenCart }) => {
   };
 
   const categories: { id: CategoryType; name: string }[] = [
-    { id: 'caipirinhas', name: 'Nossas Caipirinhas' },
-    { id: 'batidas', name: 'Deliciosas Batidas' },
-    { id: 'adicionais', name: 'Adicionais Saborosos' },
+    { id: "caipirinhas", name: "Nossas Caipirinhas" },
+    { id: "batidas", name: "Deliciosas Batidas" },
+    { id: "adicionais", name: "Adicionais Saborosos" },
   ];
 
   return (
@@ -105,11 +250,14 @@ const Cardapio: React.FC<CardapioProps> = ({ setCart, onOpenCart }) => {
             onClick={() => setActiveTab(category.id)}
             className={`
               py-3 px-6 md:px-8 text-lg md:text-xl font-bold rounded-full transition-all duration-300 ease-in-out
-              ${activeTab === category.id
-                ? 'bg-lime-600 text-white shadow-xl transform scale-105'
-                : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white'
+              ${
+                activeTab === category.id
+                  ? "bg-lime-600 text-white shadow-xl transform scale-105"
+                  : "bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white"
               }
             `}
+            // Adicionado um pequeno efeito ao clicar na aba
+            aria-current={activeTab === category.id ? "page" : undefined}
           >
             {category.name}
           </button>
@@ -130,8 +278,12 @@ const Cardapio: React.FC<CardapioProps> = ({ setCart, onOpenCart }) => {
                 alt={item.nome}
                 className="w-32 h-32 object-cover rounded-full mx-auto mb-5 border-4 border-lime-600 shadow-md"
               />
-              <h4 className="text-2xl font-bold text-white mb-2">{item.nome}</h4>
-              <p className="text-md text-gray-400 mb-3 leading-relaxed">{item.descricao}</p>
+              <h4 className="text-2xl font-bold text-white mb-2">
+                {item.nome}
+              </h4>
+              <p className="text-md text-gray-400 mb-3 leading-relaxed">
+                {item.descricao}
+              </p>
               <p className="text-lime-400 font-extrabold text-xl mb-4">
                 R${item.preco.toFixed(2)}
               </p>
