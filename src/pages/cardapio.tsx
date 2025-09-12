@@ -10,6 +10,9 @@ import Caipi_uva from "../assets/caipi_uva.png";
 import Caipi_abacaxi from "../assets/caipi_abacaxi.png";
 import Caipi_kiwi from "../assets/caipi_kiwi.png";
 import Caipi_framboesa from "../assets/caipi_framboesa.png";  
+import Caipi_amora from "../assets/caipi_amora.png";
+import Caipi_pessego from "../assets/caipi_pessego.png";
+import Caipi_manga from "../assets/caipi_manga.png";
 
 
 //Batidas
@@ -60,7 +63,6 @@ interface CardapioProps {
 
 const menuItems: MenuItem[] = [
   // Caipirinhas
-  const caipirinhas = [
   {
     nome: "Caipirinha Tradicional",
     descricao: "Clássica e revigorante com limão Taiti e cachaça premium.",
@@ -298,7 +300,7 @@ const menuItems: MenuItem[] = [
   preco: 5,
   imagem: adicionalPessego, 
   categoria: "adicionais",
-}
+},
 ];
 
 
