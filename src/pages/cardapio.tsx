@@ -296,7 +296,7 @@ const menuItems: MenuItem[] = [
   },
   {
   nome: "Adicional de Pêssego",
-  descricao: "Adicione pedaços suculentos de pêssego para um sabor doce e refrescante.",
+  descricao: "Adicione pedaços  de pêssego para um sabor doce e refrescante.",
   preco: 5,
   imagem: adicionalPessego, 
   categoria: "adicionais",

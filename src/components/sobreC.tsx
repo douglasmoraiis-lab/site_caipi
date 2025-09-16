@@ -6,7 +6,7 @@ const Sobre: React.FC = () => {
   return (
     <section
       id="sobre"
-      className="font-sans py-20 px-6 bg-gray-100 text-gray-800"
+      className="font-sans py-20 px-6 bg-gray-800 text-white"
     >
       <div className="container mx-auto max-w-4xl">
         <header className="text-center mb-12 pb-6 border-b-2 border-orange-500">
@@ -14,7 +14,7 @@ const Sobre: React.FC = () => {
             Nossa Essência: Paixão em Cada Gota
           </h1>{" "}
           {/* Título mais convidativo */}
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-white">
             Descubra a história, o cuidado e a alma por trás da sua caipirinha
             perfeita.
           </p>{" "}
@@ -40,7 +40,7 @@ const Sobre: React.FC = () => {
               De um Hobby Familiar à Arte da Caipirinha
             </h2>{" "}
             {/* Título para o bloco de texto */}
-            <p className="mb-4 text-lg leading-relaxed ">
+            <p className="mb-4 text-lg leading-relaxed text-white">
               O que floresceu de encontros calorosos em família e incontáveis
               elogios, hoje é a renomada Caipirinha do DG. De um passatempo
               despretensioso, emergiu uma paixão ardente por coquetéis vibrantes
@@ -48,7 +48,7 @@ const Sobre: React.FC = () => {
               experiência mais autêntica e inesquecível com o ícone líquido do
               Brasil.
             </p>
-            <p className="mb-4 text-lg leading-relaxed">
+            <p className="mb-4 text-lg leading-relaxed text-white">
               Nossa filosofia é pura e simples: excelência em cada detalhe.
               Desde a seleção rigorosa das melhores cachaças até o toque fresco
               e aromático do manjericão colhido no ponto certo, cada ingrediente
@@ -56,7 +56,7 @@ const Sobre: React.FC = () => {
               cuidado e a generosidade se unem para criar um copo que é pura
               perfeição.
             </p>
-            <p className="text-lg leading-relaxed">
+            <p className="text-lg leading-relaxed text-white">
               Para nós, uma caipirinha transcende a bebida; é uma celebração de
               sabores, de conexões e da própria alegria de viver. 🍋✨ Convidamos
               você a se juntar a nós, explorar nosso menu e brindar a cada
@@ -88,7 +88,7 @@ const Sobre: React.FC = () => {
                 Qualidade Inquestionável
               </h3>{" "}
               {/* Texto mais forte */}
-              <p className="text-gray-600 text-base">
+              <p className="text-gray-600 text-base ">
                 Comprometemo-nos com a excelência, utilizando apenas
                 ingredientes premium para garantir um sabor e aroma
                 verdadeiramente inesquecível em cada gole.
