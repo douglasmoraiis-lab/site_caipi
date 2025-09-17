@@ -9,11 +9,10 @@ import Caipi_caju from "../assets/caipi_caju.png";
 import Caipi_uva from "../assets/caipi_uva.png";
 import Caipi_abacaxi from "../assets/caipi_abacaxi.png";
 import Caipi_kiwi from "../assets/caipi_kiwi.png";
-import Caipi_framboesa from "../assets/caipi_framboesa.png";  
+import Caipi_framboesa from "../assets/caipi_framboesa.png";
 import Caipi_amora from "../assets/caipi_amora.png";
 import Caipi_pessego from "../assets/caipi_pessego.png";
 import Caipi_manga from "../assets/caipi_manga.png";
-
 
 //Batidas
 import batidaCoco from "../assets/batidaCoco.png";
@@ -30,15 +29,15 @@ import batidaMaracujaLei from "../assets/batida_marac_leit.png";
 import MorangocomLeiteCondensado from "../assets/batida_morango_conden.png";
 
 // Imagens para adicionais
-import adicionalMorango from "../assets/adicional_morango.png"; 
-import adicionalLimao from "../assets/adicional_limao.png"; 
-import adicionalManjericao from "../assets/adicionao_manjericao.png"; 
-import adicionalCachaca from "../assets/adicional_cachaça.png"; 
+import adicionalMorango from "../assets/adicional_morango.png";
+import adicionalLimao from "../assets/adicional_limao.png";
+import adicionalManjericao from "../assets/adicionao_manjericao.png";
+import adicionalCachaca from "../assets/adicional_cachaça.png";
 import adicionalKiwi from "../assets/adicional_kiwi.png";
 import adicionalAbacaxi from "../assets/adicional_abacaxi.png";
 import adicionalAmora from "../assets/adicional_amora.png";
 import adicionalPessego from "../assets/adicional_pessego.png";
-
+import { ShoppingCart } from "phosphor-react";
 
 interface CartItem {
   nome: string;
@@ -72,14 +71,16 @@ const menuItems: MenuItem[] = [
   },
   {
     nome: "Caipiroska de Morango",
-    descricao: "Morango fresco macerado, vodka de alta qualidade e um toque de limão.",
+    descricao:
+      "Morango fresco macerado, vodka de alta qualidade e um toque de limão.",
     preco: 18,
     imagem: caipiroskaM,
     categoria: "caipirinhas",
   },
   {
     nome: "Caipirinha de Maracujá",
-    descricao: "A combinação perfeita entre o doce e o azedo do maracujá com cachaça.",
+    descricao:
+      "A combinação perfeita entre o doce e o azedo do maracujá com cachaça.",
     preco: 17.5,
     imagem: Caipi_maracuja,
     categoria: "caipirinhas",
@@ -107,7 +108,8 @@ const menuItems: MenuItem[] = [
   },
   {
     nome: "Caipirinha Aba Hortelã",
-    descricao: "Abacaxi fresco e folhas de hortelã para uma refrescância tropical.",
+    descricao:
+      "Abacaxi fresco e folhas de hortelã para uma refrescância tropical.",
     preco: 18,
     imagem: Caipi_abacaxi,
     categoria: "caipirinhas",
@@ -121,28 +123,32 @@ const menuItems: MenuItem[] = [
   },
   {
     nome: "Caipirinha de Framboesa",
-    descricao: "Framboesas frescas com cachaça, para um sabor frutado e marcante.",
+    descricao:
+      "Framboesas frescas com cachaça, para um sabor frutado e marcante.",
     preco: 19,
     imagem: Caipi_framboesa,
     categoria: "caipirinhas",
   },
   {
     nome: "Caipirinha de Amora",
-    descricao: "Amoras frescas maceradas, equilíbrio perfeito entre doce e azedo.",
+    descricao:
+      "Amoras frescas maceradas, equilíbrio perfeito entre doce e azedo.",
     preco: 19,
     imagem: Caipi_amora,
     categoria: "caipirinhas",
   },
   {
     nome: "Caipirinha de Pêssego",
-    descricao: "Pêssego suculento combinado com cachaça para uma caipirinha doce.",
+    descricao:
+      "Pêssego suculento combinado com cachaça para uma caipirinha doce.",
     preco: 18.5,
     imagem: Caipi_pessego,
     categoria: "caipirinhas",
   },
   {
     nome: "Caipirinha de Manga",
-    descricao: "Manga madura e doce, ideal para uma bebida tropical irresistível.",
+    descricao:
+      "Manga madura e doce, ideal para uma bebida tropical irresistível.",
     preco: 19,
     imagem: Caipi_manga,
     categoria: "caipirinhas",
@@ -261,16 +267,17 @@ const menuItems: MenuItem[] = [
   },
   {
     nome: "Shot de Cachaça Extra",
-    descricao: "Um shot extra da nossa cachaça premium para um toque mais forte.",
+    descricao:
+      "Um shot extra da nossa cachaça premium para um toque mais forte.",
     preco: 8,
     imagem: adicionalCachaca,
     categoria: "adicionais",
   },
-    {
+  {
     nome: "Adicional de Kiwi",
     descricao: "Adicione um toque refrescante de kiwi à sua caipirinha.",
     preco: 5,
-    imagem: adicionalKiwi, 
+    imagem: adicionalKiwi,
     categoria: "adicionais",
   },
   {
@@ -282,7 +289,8 @@ const menuItems: MenuItem[] = [
   },
   {
     nome: "Adicional de Abacaxi",
-    descricao: "Um toque tropical com pedaços de abacaxi delicioso na sua bebida.",
+    descricao:
+      "Um toque tropical com pedaços de abacaxi delicioso na sua bebida.",
     preco: 5,
     imagem: adicionalAbacaxi,
     categoria: "adicionais",
@@ -295,14 +303,13 @@ const menuItems: MenuItem[] = [
     categoria: "adicionais",
   },
   {
-  nome: "Adicional de Pêssego",
-  descricao: "Adicione pedaços  de pêssego para um sabor doce e refrescante.",
-  preco: 5,
-  imagem: adicionalPessego, 
-  categoria: "adicionais",
-},
+    nome: "Adicional de Pêssego",
+    descricao: "Adicione pedaços  de pêssego para um sabor doce e refrescante.",
+    preco: 5,
+    imagem: adicionalPessego,
+    categoria: "adicionais",
+  },
 ];
-
 
 const Cardapio: React.FC<CardapioProps> = ({ setCart, onOpenCart }) => {
   const [activeTab, setActiveTab] = useState<CategoryType>("caipirinhas");
@@ -382,9 +389,9 @@ const Cardapio: React.FC<CardapioProps> = ({ setCart, onOpenCart }) => {
               </div>
               <button
                 onClick={() => handleAddToCart(item)}
-                className="w-full bg-lime-500 hover:bg-lime-600 text-white font-bold py-3 px-4 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-opacity-75"
+                className="w-full bg-lime-500 hover:bg-lime-600 text-white font-bold py-3 px-4 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-opacity-75 flex items-center justify-center gap-2"
               >
-                Adicionar ao Carrinho
+                <ShoppingCart size={24} /> Adicionar ao Carrinho
               </button>
             </div>
           ))}
