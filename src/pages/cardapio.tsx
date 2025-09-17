@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// Importações de imagens (mantive as suas, mas observe as sugestões para adicionais)
+// Importações de imagens (exatamente como no seu original)
 //Caipirinhas
 import caipiroskaM from "../assets/caipi_morango.png";
 import Caipi_limao from "../assets/tradicional.png";
@@ -29,7 +29,7 @@ import batidaBananaAcai from "../assets/batida_bana_acai.png";
 import batidaMaracujaLei from "../assets/batida_marac_leit.png";
 import MorangocomLeiteCondensado from "../assets/batida_morango_conden.png";
 
-// Sugestão: Imagens específicas para adicionais
+// Imagens para adicionais
 import adicionalMorango from "../assets/adicional_morango.png"; 
 import adicionalLimao from "../assets/adicional_limao.png"; 
 import adicionalManjericao from "../assets/adicionao_manjericao.png"; 
@@ -237,7 +237,7 @@ const menuItems: MenuItem[] = [
     categoria: "batidas",
   },
 
-  // Adicionais (usando as novas importações de imagens)
+  // Adicionais
   {
     nome: "Adicional de Morango",
     descricao: "Porção extra de morangos frescos para sua bebida.",
@@ -329,25 +329,25 @@ const Cardapio: React.FC<CardapioProps> = ({ setCart, onOpenCart }) => {
   ];
 
   return (
-    <div className="p-6 md:p-12 bg-gray-900 min-h-screen">
-      <h2 className="text-5xl md:text-6xl font-extrabold text-white mb-16 text-center animate-fadeInSlow">
+    <div className="p-4 sm:p-6 md:p-12 bg-gray-900 min-h-screen">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-12 sm:mb-16 text-center animate-fadeInSlow">
         Nosso Cardápio Exclusivo
       </h2>
 
       {/* Navegação por abas */}
-      <div className="flex flex-wrap justify-center gap-4 md:gap-8 mb-12">
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-12 w-full max-w-lg mx-auto">
         {categories.map((category) => (
           <button
             key={category.id}
             onClick={() => setActiveTab(category.id)}
             className={`
-        py-3 px-6 md:px-8 text-lg md:text-xl font-bold rounded-full transition-all duration-300 ease-in-out
-        ${
-          activeTab === category.id
-            ? "bg-lime-600 text-white shadow-xl transform scale-105"
-            : "bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white"
-        }
-      `}
+              w-full sm:w-auto py-3 px-5 text-sm sm:text-base font-bold rounded-full transition-all duration-300 ease-in-out flex-1
+              ${
+                activeTab === category.id
+                  ? "bg-lime-500 text-white shadow-lg transform scale-105"
+                  : "bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white"
+              }
+            `}
             aria-current={activeTab === category.id ? "page" : undefined}
           >
             {category.name}
@@ -356,31 +356,33 @@ const Cardapio: React.FC<CardapioProps> = ({ setCart, onOpenCart }) => {
       </div>
 
       {/* Conteúdo das abas */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 animate-fadeIn">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 animate-fadeIn">
         {menuItems
           .filter((item) => item.categoria === activeTab)
           .map((item, i) => (
             <div
-              key={item.nome + i}
-              className="bg-gray-800 rounded-2xl p-6 text-center shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 ease-in-out border border-transparent hover:border-lime-500"
+              key={`${item.nome}-${i}`} // Usando nome e índice para uma chave mais robusta
+              className="bg-gray-800 rounded-2xl p-6 text-center shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 ease-in-out border border-transparent hover:border-lime-500 flex flex-col"
             >
               <img
                 src={item.imagem}
                 alt={item.nome}
-                className="w-32 h-32 object-cover rounded-full mx-auto mb-5 border-4 border-lime-600 shadow-md"
+                className="w-28 h-28 sm:w-32 sm:h-32 object-cover rounded-full mx-auto mb-5 border-4 border-lime-500 shadow-md"
               />
-              <h4 className="text-2xl font-bold text-white mb-2">
-                {item.nome}
-              </h4>
-              <p className="text-md text-gray-400 mb-3 leading-relaxed">
-                {item.descricao}
-              </p>
-              <p className="text-lime-400 font-extrabold text-xl mb-4">
-                R${item.preco.toFixed(2)}
-              </p>
+              <div className="flex-grow flex flex-col">
+                <h4 className="text-xl sm:text-2xl font-bold text-white mb-2">
+                  {item.nome}
+                </h4>
+                <p className="text-sm sm:text-base text-gray-400 mb-3 leading-relaxed min-h-[3rem] sm:min-h-[4rem]">
+                  {item.descricao}
+                </p>
+                <p className="text-lime-400 font-extrabold text-lg sm:text-xl mt-auto mb-4">
+                  R${item.preco.toFixed(2)}
+                </p>
+              </div>
               <button
                 onClick={() => handleAddToCart(item)}
-                className="mt-4 w-full bg-lime-600 hover:bg-lime-700 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-opacity-75"
+                className="w-full bg-lime-500 hover:bg-lime-600 text-white font-bold py-3 px-4 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-opacity-75"
               >
                 Adicionar ao Carrinho
               </button>
