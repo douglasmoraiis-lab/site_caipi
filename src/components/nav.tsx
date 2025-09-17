@@ -1,13 +1,13 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ShoppingCartSimple } from "phosphor-react";
+import { ShoppingCart } from "phosphor-react";
 
 interface NavbarProps {
   onOpenCart: () => void;
   cartItemCount: number;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ onOpenCart, cartItemCount }) => {
+const Navbar: React.FC<NavbarProps> = ({ onOpenCart }) => {
   const location = useLocation();
 
   const links = [
@@ -20,6 +20,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenCart, cartItemCount }) => {
   return (
     <nav className="bg-black backdrop-blur-md px-6 py-4 shadow-lg sticky top-0 z-30 border-b border-gray-800">
       <div className="container mx-auto flex justify-between items-center">
+
         {/* Logo */}
         <Link
           to="/"
@@ -28,44 +29,42 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenCart, cartItemCount }) => {
           Caipirinha do DG
         </Link>
 
-        {/* Links */}
-        <div className="flex items-center space-x-8">
-          {links.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className={`relative text-sm font-medium transition-colors ${
-                location.pathname === link.to
-                  ? "text-lime-400"
-                  : "text-gray-300 hover:text-lime-400"
-              }`}
-            >
-              {link.label}
-              {/* underline animado */}
-              <span
-                className={`absolute -bottom-1 left-0 h-0.5 w-full bg-lime-400 transition-transform origin-left ${
+        {/* Links Section - Centered */}
+        <div className="flex-1 flex justify-center items-center">
+          <div className="flex items-center space-x-8">
+            {links.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`relative text-sm font-medium transition-colors ${
                   location.pathname === link.to
-                    ? "scale-x-100"
-                    : "scale-x-0 group-hover:scale-x-100"
+                    ? "text-lime-400"
+                    : "text-gray-300 hover:text-lime-400"
                 }`}
-              />
-            </Link>
-          ))}
+              >
+                {link.label}
 
-          {/* Carrinho */}
-          <button
-            onClick={onOpenCart}
-            className="relative p-2 rounded-full bg-lime-500 hover:bg-lime-600 transition-all duration-200 text-white shadow-md hover:scale-105"
-            aria-label="Abrir Carrinho"
-          >
-            <ShoppingCartSimple size={24} weight="bold" />
-            {cartItemCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center animate-bounce">
-                {cartItemCount}
-              </span>
-            )}
-          </button>
+                {/* underline animado */}
+                <span
+                  className={`absolute -bottom-1 left-0 h-0.5 w-full bg-lime-400 transition-transform origin-left ${
+                    location.pathname === link.to
+                      ? "scale-x-100"
+                      : "scale-x-0 group-hover:scale-x-100"
+                  }`}
+                />
+              </Link>
+            ))}
+          </div>
         </div>
+
+        {/* Carrinho */}
+        <button
+          onClick={onOpenCart}
+          className="flex items-center justify-center w-10 h-10 rounded-full bg-lime-500 hover:bg-lime-600 transition"
+        >
+          <ShoppingCart size={16} />
+        </button>
+
       </div>
     </nav>
   );

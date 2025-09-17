@@ -11,13 +11,16 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
+    "add": "^2.0.6",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.543.0",
+    "ou": "^0.0.2",
     "phosphor-react": "^1.4.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-router-dom": "^7.8.2",
-    "tailwindcss": "^4.1.13"
+    "react-router-dom": "^7.9.1",
+    "tailwindcss": "^4.1.13",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",

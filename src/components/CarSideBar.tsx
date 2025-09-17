@@ -1,4 +1,6 @@
+// src/components/CarSideBar.tsx
 import React, { useState } from "react";
+// import Baloes from "./Baloes"; // REMOVIDO: Baloes não é usado aqui diretamente
 
 interface CartItem {
   nome: string;
@@ -11,16 +13,15 @@ interface CartSidebarProps {
   setCart: React.Dispatch<React.SetStateAction<CartItem[]>>;
   isOpen: boolean;
   onClose: () => void;
+  onOrderSuccess: () => void; // NOVO: Callback para quando o pedido for um sucesso
 }
 
-const CartSidebar: React.FC<CartSidebarProps> = ({ cart, setCart, isOpen, onClose }) => {
+const CartSidebar: React.FC<CartSidebarProps> = ({ cart, setCart, isOpen, onClose, onOrderSuccess }) => {
   const [isCheckout, setIsCheckout] = useState(false);
   const [userData, setUserData] = useState({ nome: "", telefone: "", endereco: "" });
   const [success, setSuccess] = useState(false);
 
-  const handleRemoveItem = (itemToRemove: CartItem) => {
-    setCart((prev) => prev.filter((item) => item.nome !== itemToRemove.nome));
-  };
+  // ... (suas funções handleRemoveItem, handleUpdateQuantity, total, handleChange permanecem as mesmas)
 
   const handleUpdateQuantity = (itemToUpdate: CartItem, newQuantity: number) => {
     if (newQuantity <= 0) {
@@ -36,6 +37,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ cart, setCart, isOpen, onClos
 
   const total = cart.reduce((sum, item) => sum + item.preco * item.quantidade, 0);
 
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
@@ -44,14 +46,15 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ cart, setCart, isOpen, onClos
     e.preventDefault();
     // Aqui você pode enviar os dados para API ou email
     setSuccess(true);
-    setCart([]);
+    setCart([]); // Limpa o carrinho
     setUserData({ nome: "", telefone: "", endereco: "" });
+    onOrderSuccess(); // CHAMA A FUNÇÃO PARA DISPARAR A FESTA NO COMPONENTE PAI (App.tsx)
 
-    // Fecha checkout após 3 segundos
+    // Fecha checkout e sidebar após 3 segundos
     setTimeout(() => {
       setSuccess(false);
       setIsCheckout(false);
-      onClose();
+      onClose(); // Fecha o sidebar
     }, 3000);
   };
 
@@ -81,9 +84,16 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ cart, setCart, isOpen, onClos
                     <p className="text-sm text-gray-400">R${item.preco.toFixed(2)}</p>
                   </div>
                   <div className="flex items-center">
-                    <button onClick={() => handleUpdateQuantity(item, item.quantidade - 1)}>-</button>
-                    <span className="px-3">{item.quantidade}</span>
-                    <button onClick={() => handleUpdateQuantity(item, item.quantidade + 1)}>+</button>
+                    <button onClick={() => handleUpdateQuantity(item, item.quantidade - 1)}
+                            className="bg-gray-600 hover:bg-gray-700 text-white p-1 rounded-full w-6 h-6 flex items-center justify-center text-lg leading-none" // Estilos adicionados para melhor visual
+                    >-</button>
+                    <span className="px-3 text-white">{item.quantidade}</span>
+                    <button onClick={() => handleUpdateQuantity(item, item.quantidade + 1)}
+                            className="bg-gray-600 hover:bg-gray-700 text-white p-1 rounded-full w-6 h-6 flex items-center justify-center text-lg leading-none" // Estilos adicionados
+                    >+</button>
+                    <button onClick={() => handleRemoveItem(item)}
+                            className="text-red-400 hover:text-red-500 ml-3 text-sm" // Estilos adicionados
+                    >Remover</button>
                   </div>
                 </div>
               ))
@@ -142,7 +152,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ cart, setCart, isOpen, onClos
           </div>
         )}
 
-        {success && (
+       {success && (
           <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
             <div className="bg-green-500 text-white font-bold px-6 py-4 rounded-xl shadow-lg animate-fadeIn">
               Pedido realizado com sucesso!
@@ -155,3 +165,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ cart, setCart, isOpen, onClos
 };
 
 export default CartSidebar;
+
+function handleRemoveItem(_itemToUpdate: CartItem) {
+  throw new Error("Function not implemented.");
+}

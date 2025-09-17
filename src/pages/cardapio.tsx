@@ -85,7 +85,7 @@ const menuItems: MenuItem[] = [
     categoria: "caipirinhas",
   },
   {
-    nome: "Caipi Limão e Manjericão",
+    nome: "Caipi Limão e Manje",
     descricao: "Explosão de frescor, limão e folhas de manjericão.",
     preco: 19,
     imagem: Caipi_limao_manjericao,
@@ -106,7 +106,7 @@ const menuItems: MenuItem[] = [
     categoria: "caipirinhas",
   },
   {
-    nome: "Caipirinha de Abacaxi com Hortelã",
+    nome: "Caipirinha Aba Hortelã",
     descricao: "Abacaxi fresco e folhas de hortelã para uma refrescância tropical.",
     preco: 18,
     imagem: Caipi_abacaxi,
@@ -135,7 +135,7 @@ const menuItems: MenuItem[] = [
   },
   {
     nome: "Caipirinha de Pêssego",
-    descricao: "Pêssego suculento combinado com cachaça para uma caipirinha doce e aromática.",
+    descricao: "Pêssego suculento combinado com cachaça para uma caipirinha doce.",
     preco: 18.5,
     imagem: Caipi_pessego,
     categoria: "caipirinhas",
@@ -195,14 +195,14 @@ const menuItems: MenuItem[] = [
     categoria: "batidas",
   },
   {
-    nome: "Batida de Abaca/ e Hortelã",
+    nome: "Batida de Aba/ e Hortelã",
     descricao: "Sabor exótico do abacaxi com o frescor da hortelã.",
     preco: 22.5,
     imagem: batidaAbacaxiHort,
     categoria: "batidas",
   },
   {
-    nome: "Batida de Banana Açaí",
+    nome: "Batida de Banana e  Açaí",
     descricao: "Sabor exótico da banana com o frescor do açaí.",
     preco: 22.5,
     imagem: batidaBananaAcai,
@@ -217,20 +217,20 @@ const menuItems: MenuItem[] = [
   },
   {
     nome: "Batida de laranja",
-    descricao: "Sabor exótico da laranja com o frescor da hortelã.",
+    descricao: "Sabor de laranja com um toque cítrico refrescante.",
     preco: 22.5,
     imagem: batidaLaranja,
     categoria: "batidas",
   },
   {
-    nome: "Batida Morango Cremoso",
+    nome: "Batida Mor Cremoso",
     descricao: "Sabor exótico do morango com o cremoso leite condensado.",
     preco: 22.5,
     imagem: MorangocomLeiteCondensado,
     categoria: "batidas",
   },
   {
-    nome: "Batida Maracujá com Leite",
+    nome: "Batida Mar Cremoso",
     descricao: "Sabor exótico do maracujá com o cremoso leite condensado.",
     preco: 22.5,
     imagem: batidaMaracujaLei,
