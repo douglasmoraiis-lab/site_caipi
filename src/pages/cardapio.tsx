@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-// Importações de imagens (exatamente como no seu original)
+// 1. IMPORTANDO OS TIPOS CORRETOS DO ARQUIVO CENTRAL
+// 1. IMPORTANDO OS TIPOS CORRETOS DO ARQUIVO CENTRAL
+import type { CartItem, Adicional } from "../types";
+
+// Importações de imagens (EXATAMENTE COMO NO SEU ORIGINAL)
 //Caipirinhas
 import caipiroskaM from "../assets/caipi_morango.png";
 import Caipi_limao from "../assets/tradicional.png";
@@ -39,11 +43,7 @@ import adicionalAmora from "../assets/adicional_amora.png";
 import adicionalPessego from "../assets/adicional_pessego.png";
 import { ShoppingCart } from "phosphor-react";
 
-interface CartItem {
-  nome: string;
-  preco: number;
-  quantidade: number;
-}
+// 2. A INTERFACE LOCAL 'CartItem' FOI REMOVIDA DAQUI
 
 type CategoryType = "caipirinhas" | "batidas" | "adicionais";
 
@@ -55,12 +55,16 @@ interface MenuItem {
   categoria: CategoryType;
 }
 
+// 3. ATUALIZANDO AS PROPS PARA INCLUIR A LÓGICA DOS ADICIONAIS
 interface CardapioProps {
   setCart: React.Dispatch<React.SetStateAction<CartItem[]>>;
   onOpenCart: () => void;
+  modifyingItemId: string | null;
+  onAddAdicional: (adicional: Adicional) => void;
 }
 
 const menuItems: MenuItem[] = [
+  // ... SEU ARRAY menuItems PERMANECE EXATAMENTE IGUAL ...
   // Caipirinhas
   {
     nome: "Caipirinha Tradicional",
@@ -311,20 +315,30 @@ const menuItems: MenuItem[] = [
   },
 ];
 
-const Cardapio: React.FC<CardapioProps> = ({ setCart, onOpenCart }) => {
+const Cardapio: React.FC<CardapioProps> = ({ setCart, onOpenCart, modifyingItemId, onAddAdicional }) => {
   const [activeTab, setActiveTab] = useState<CategoryType>("caipirinhas");
 
   const handleAddToCart = (menuItem: MenuItem) => {
-    setCart((prev: CartItem[]) => {
-      const existing = prev.find((item) => item.nome === menuItem.nome);
+    setCart((prev) => {
+      // Procura por um item existente SEM adicionais para apenas incrementar a quantidade
+      const existing = prev.find((item) => item.nome === menuItem.nome && (!item.adicionais || item.adicionais.length === 0));
       if (existing) {
         return prev.map((item) =>
-          item.nome === menuItem.nome
+          item.id === existing.id
             ? { ...item, quantidade: item.quantidade + 1 }
             : item
         );
       }
-      return [...prev, { ...menuItem, quantidade: 1 }];
+      // 4. CRIA UM NOVO ITEM COM 'id' E 'adicionais' PARA SER COMPATÍVEL
+      const newItem: CartItem = {
+        id: Date.now().toString(), // Cria um ID único baseado no tempo
+        nome: menuItem.nome,
+        preco: menuItem.preco,
+        imageUrl: menuItem.imagem,
+        quantidade: 1,
+        adicionais: [],
+      };
+      return [...prev, newItem];
     });
     onOpenCart();
   };
@@ -335,6 +349,41 @@ const Cardapio: React.FC<CardapioProps> = ({ setCart, onOpenCart }) => {
     { id: "adicionais", name: "Adicionais Saborosos" },
   ];
 
+  // 5. SE ESTIVER ADICIONANDO UM 'ADICIONAL', MOSTRA UMA TELA DIFERENTE
+  if (modifyingItemId) {
+    return (
+      <div className="p-4 sm:p-6 md:p-12 bg-gray-900 min-h-screen">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-12 sm:mb-16 text-center">
+          Escolha um Adicional
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+          {menuItems
+            .filter((item) => item.categoria === "adicionais")
+            .map((item, i) => (
+              // Reutilizando seu estilo de card para os adicionais
+              <div
+                key={`${item.nome}-${i}`}
+                className="bg-gray-800 rounded-2xl p-6 text-center shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 ease-in-out border border-transparent hover:border-lime-500 flex flex-col"
+              >
+                <img src={item.imagem} alt={item.nome} className="w-28 h-28 sm:w-32 sm:h-32 object-cover rounded-full mx-auto mb-5 border-4 border-lime-500 shadow-md" />
+                <div className="flex-grow flex flex-col">
+                  <h4 className="text-xl sm:text-2xl font-bold text-white mb-2">{item.nome}</h4>
+                  <p className="text-lime-400 font-extrabold text-lg sm:text-xl mt-auto mb-4">R${item.preco.toFixed(2)}</p>
+                </div>
+                <button
+                  onClick={() => onAddAdicional({ nome: item.nome, preco: item.preco, })}
+                  className="w-full bg-lime-500 hover:bg-lime-600 text-white font-bold py-3 px-4 rounded-full transition-all duration-300"
+                >
+                  Adicionar
+                </button>
+              </div>
+            ))}
+        </div>
+      </div>
+    );
+  }
+
+  // SE NÃO, RENDERIZA SEU CARDÁPIO NORMAL (CÓDIGO ORIGINAL)
   return (
     <div className="p-4 sm:p-6 md:p-12 bg-gray-900 min-h-screen">
       <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-12 sm:mb-16 text-center animate-fadeInSlow">
@@ -349,10 +398,9 @@ const Cardapio: React.FC<CardapioProps> = ({ setCart, onOpenCart }) => {
             onClick={() => setActiveTab(category.id)}
             className={`
               w-full sm:w-auto py-3 px-5 text-sm sm:text-base font-bold rounded-full transition-all duration-300 ease-in-out flex-1
-              ${
-                activeTab === category.id
-                  ? "bg-lime-500 text-white shadow-lg transform scale-105"
-                  : "bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white"
+              ${activeTab === category.id
+                ? "bg-lime-500 text-white shadow-lg transform scale-105"
+                : "bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white"
               }
             `}
             aria-current={activeTab === category.id ? "page" : undefined}

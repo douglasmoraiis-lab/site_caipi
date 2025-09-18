@@ -1,171 +1,127 @@
 // src/components/CarSideBar.tsx
-import React, { useState } from "react";
-// import Baloes from "./Baloes"; // REMOVIDO: Baloes não é usado aqui diretamente
 
-interface CartItem {
-  nome: string;
-  preco: number;
-  quantidade: number;
-}
+import React from "react";
+import { Trash, Minus, Plus, PlusCircle } from "phosphor-react"; 
+import { motion, AnimatePresence } from "framer-motion";
+import type { CartItem } from "../types";
 
 interface CartSidebarProps {
   cart: CartItem[];
   setCart: React.Dispatch<React.SetStateAction<CartItem[]>>;
   isOpen: boolean;
   onClose: () => void;
-  onOrderSuccess: () => void; // NOVO: Callback para quando o pedido for um sucesso
+  onAddAdditionalRequest: (item: CartItem) => void; 
+  onGoToCheckout: () => void; 
 }
 
-const CartSidebar: React.FC<CartSidebarProps> = ({ cart, setCart, isOpen, onClose, onOrderSuccess }) => {
-  const [isCheckout, setIsCheckout] = useState(false);
-  const [userData, setUserData] = useState({ nome: "", telefone: "", endereco: "" });
-  const [success, setSuccess] = useState(false);
+const CartSidebar: React.FC<CartSidebarProps> = ({
+  cart,
+  setCart,
+  isOpen,
+  onClose,
+  onAddAdditionalRequest,
+  onGoToCheckout,
+}) => {
 
-  // ... (suas funções handleRemoveItem, handleUpdateQuantity, total, handleChange permanecem as mesmas)
+  const handleRemoveItem = (itemId: string) => {
+    setCart((prev) => prev.filter((item) => item.id !== itemId));
+  };
 
-  const handleUpdateQuantity = (itemToUpdate: CartItem, newQuantity: number) => {
+  const handleUpdateQuantity = (itemId: string, newQuantity: number) => {
     if (newQuantity <= 0) {
-      handleRemoveItem(itemToUpdate);
+      handleRemoveItem(itemId);
       return;
     }
     setCart((prev) =>
-      prev.map((item) =>
-        item.nome === itemToUpdate.nome ? { ...item, quantidade: newQuantity } : item
-      )
+      prev.map((item) => (item.id === itemId ? { ...item, quantidade: newQuantity } : item))
     );
   };
-
-  const total = cart.reduce((sum, item) => sum + item.preco * item.quantidade, 0);
-
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserData({ ...userData, [e.target.name]: e.target.value });
+  
+  const calculateItemSubtotal = (item: CartItem) => {
+    const adicionaisTotal = (item.adicionais || []).reduce((sum, ad) => sum + ad.preco, 0);
+    return (item.preco + adicionaisTotal) * item.quantidade;
   };
 
-  const handleCheckoutSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Aqui você pode enviar os dados para API ou email
-    setSuccess(true);
-    setCart([]); // Limpa o carrinho
-    setUserData({ nome: "", telefone: "", endereco: "" });
-    onOrderSuccess(); // CHAMA A FUNÇÃO PARA DISPARAR A FESTA NO COMPONENTE PAI (App.tsx)
-
-    // Fecha checkout e sidebar após 3 segundos
-    setTimeout(() => {
-      setSuccess(false);
-      setIsCheckout(false);
-      onClose(); // Fecha o sidebar
-    }, 3000);
-  };
+  const total = cart.reduce((sum, item) => sum + calculateItemSubtotal(item), 0);
 
   return (
-    <div
-      className={`fixed top-0 right-0 h-full w-80 bg-gray-800 shadow-xl transform transition-transform duration-300 ease-in-out z-50 ${
-        isOpen ? "translate-x-0" : "translate-x-full"
-      }`}
-    >
-      <div className="p-6 flex flex-col h-full">
-        <div className="flex justify-between items-center border-b border-gray-700 pb-4 mb-4">
-          <h2 className="text-2xl font-bold text-white">{isCheckout ? "Finalizar Pedido" : "Seu Carrinho"}</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-white transition-colors">
-            ✖
-          </button>
-        </div>
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ x: "100%" }}
+          animate={{ x: 0 }}
+          exit={{ x: "100%" }}
+          transition={{ type: "spring", stiffness: 100, damping: 20 }}
+          // =====================================================================
+          // ALTERAÇÃO RESPONSIVA: Ocupa a tela inteira no celular, 480px no desktop
+          // =====================================================================
+          className="fixed top-0 right-0 h-full w-full sm:w-[480px] bg-gray-900 shadow-2xl z-50 flex flex-col"
+        >
+          <div className="p-5 flex justify-between items-center border-b border-gray-700 flex-shrink-0">
+            <h2 className="text-2xl font-bold text-white">Seu Carrinho</h2>
+            <button onClick={onClose} className="text-gray-400 hover:text-white transition-colors">✖</button>
+          </div>
 
-        <div className="flex-grow overflow-y-auto pr-2">
-          {!isCheckout ? (
-            cart.length === 0 ? (
-              <p className="text-center text-gray-500">Seu carrinho está vazio.</p>
+          <div className="flex-grow overflow-y-auto px-5 py-4">
+            {cart.length === 0 ? (
+              <p className="text-center text-gray-500 mt-10">Seu carrinho está vazio.</p>
             ) : (
-              cart.map((item, index) => (
-                <div key={index} className="flex items-center justify-between bg-gray-700 rounded-lg p-3 mb-2">
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-white">{item.nome}</h3>
-                    <p className="text-sm text-gray-400">R${item.preco.toFixed(2)}</p>
+              cart.map((item) => (
+                <div key={item.id} className="bg-gray-800 rounded-lg p-3 mb-3 flex flex-col">
+                  {/* ... O layout interno do item já é flexível e funciona bem ... */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <img src={item.imageUrl || 'https://via.placeholder.com/100'} alt={item.nome} className="w-16 h-16 rounded-md object-cover"/>
+                      <div>
+                        <h3 className="text-md font-semibold text-white mb-2">{item.nome}</h3>
+                        <div className="flex items-center bg-gray-700 rounded-full px-1 w-fit">
+                          <button onClick={() => handleUpdateQuantity(item.id, item.quantidade - 1)} className="text-white text-xl p-1 w-7 h-7 flex items-center justify-center rounded-full hover:bg-gray-600"><Minus size={16} /></button>
+                          <span className="px-3 text-white font-bold text-sm">{item.quantidade}</span>
+                          <button onClick={() => handleUpdateQuantity(item.id, item.quantidade + 1)} className="text-white text-xl p-1 w-7 h-7 flex items-center justify-center rounded-full hover:bg-gray-600"><Plus size={16} /></button>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-end justify-between h-full">
+                      <button onClick={() => handleRemoveItem(item.id)} className="text-red-400 hover:text-red-500 transition-colors"><Trash size={20} /></button>
+                      <p className="text-lg font-bold text-yellow-400 mt-4">R${calculateItemSubtotal(item).toFixed(2)}</p>
+                    </div>
                   </div>
-                  <div className="flex items-center">
-                    <button onClick={() => handleUpdateQuantity(item, item.quantidade - 1)}
-                            className="bg-gray-600 hover:bg-gray-700 text-white p-1 rounded-full w-6 h-6 flex items-center justify-center text-lg leading-none" // Estilos adicionados para melhor visual
-                    >-</button>
-                    <span className="px-3 text-white">{item.quantidade}</span>
-                    <button onClick={() => handleUpdateQuantity(item, item.quantidade + 1)}
-                            className="bg-gray-600 hover:bg-gray-700 text-white p-1 rounded-full w-6 h-6 flex items-center justify-center text-lg leading-none" // Estilos adicionados
-                    >+</button>
-                    <button onClick={() => handleRemoveItem(item)}
-                            className="text-red-400 hover:text-red-500 ml-3 text-sm" // Estilos adicionados
-                    >Remover</button>
+                  <div className="mt-2 pt-2 border-t border-gray-700/50">
+                    {item.adicionais && item.adicionais.length > 0 && (
+                      <div className="space-y-1 mb-2">
+                        {item.adicionais.map((ad, adIndex) => (
+                          <div key={adIndex} className="flex justify-between items-center text-sm ml-4">
+                            <p className="text-gray-300">+ {ad.nome}</p>
+                            <p className="text-gray-400">R${ad.preco.toFixed(2)}</p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <button onClick={() => onAddAdditionalRequest(item)} className="w-full text-left text-lime-400 hover:text-lime-500 text-sm flex items-center p-2 bg-gray-700/50 hover:bg-gray-700 rounded-lg transition-colors">
+                      <PlusCircle size={20} className="mr-2"/>
+                      Adicionar adicional
+                    </button>
                   </div>
                 </div>
               ))
-            )
-          ) : (
-            <form className="space-y-4" onSubmit={handleCheckoutSubmit}>
-              <input
-                type="text"
-                name="nome"
-                value={userData.nome}
-                onChange={handleChange}
-                placeholder="Seu nome"
-                className="w-full p-3 rounded-lg bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-lime-500"
-                required
-              />
-              <input
-                type="tel"
-                name="telefone"
-                value={userData.telefone}
-                onChange={handleChange}
-                placeholder="Telefone"
-                className="w-full p-3 rounded-lg bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-lime-500"
-                required
-              />
-              <input
-                type="text"
-                name="endereco"
-                value={userData.endereco}
-                onChange={handleChange}
-                placeholder="Endereço"
-                className="w-full p-3 rounded-lg bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-lime-500"
-                required
-              />
-              <button
-                type="submit"
-                className="w-full py-3 rounded-lg bg-lime-500 hover:bg-lime-600 text-white font-semibold shadow-md"
-              >
-                Confirmar Pedido
+            )}
+          </div>
+
+          {cart.length > 0 && (
+            <div className="p-5 border-t border-gray-700 flex-shrink-0">
+              <div className="flex justify-between items-center text-white font-semibold mb-3">
+                <span className="text-lg">Total:</span>
+                <span className="text-xl text-lime-400">R$ {total.toFixed(2)}</span>
+              </div>
+              <button onClick={onGoToCheckout} className="w-full py-3 rounded-lg bg-lime-500 hover:bg-lime-600 text-white font-semibold shadow-md">
+                Finalizar Pedido
               </button>
-            </form>
+            </div>
           )}
-        </div>
-
-        {!isCheckout && cart.length > 0 && (
-          <div className="mt-4 border-t border-gray-700 pt-4">
-            <div className="flex justify-between items-center mb-4">
-              <span className="text-xl font-bold text-white">Total:</span>
-              <span className="text-xl font-bold text-yellow-400">R${total.toFixed(2)}</span>
-            </div>
-            <button
-              className="w-full bg-yellow-500 py-3 rounded-xl hover:bg-yellow-600 transition-colors"
-              onClick={() => setIsCheckout(true)}
-            >
-              Finalizar Compra
-            </button>
-          </div>
-        )}
-
-       {success && (
-          <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
-            <div className="bg-green-500 text-white font-bold px-6 py-4 rounded-xl shadow-lg animate-fadeIn">
-              Pedido realizado com sucesso!
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
 export default CartSidebar;
-
-function handleRemoveItem(_itemToUpdate: CartItem) {
-  throw new Error("Function not implemented.");
-}
