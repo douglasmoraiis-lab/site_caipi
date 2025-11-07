@@ -22,31 +22,41 @@ const AppContent: React.FC = () => {
   const [showParty, setShowParty] = useState(false);
   const [modifyingItemId, setModifyingItemId] = useState<string | null>(null);
   const navigate = useNavigate();
+  const ListaProdutos: React.FC = () => <ListaProdutos />;
+
 
   const handlePartyEnd = useCallback(() => setShowParty(false), []);
   const handleOrderSuccess = useCallback(() => setShowParty(true), []);
 
-  const handleRequestAdditional = useCallback((item: CartItem) => {
-    setModifyingItemId(item.id);
-    setIsCartOpen(false);
-    navigate('/cardapio');
-  }, [navigate]);
+  const handleRequestAdditional = useCallback(
+    (item: CartItem) => {
+      setModifyingItemId(item.id);
+      setIsCartOpen(false);
+      navigate("/cardapio");
+    },
+    [navigate]
+  );
 
-  const handleAddAdicionalToCart = useCallback((adicional: Adicional) => {
-    if (!modifyingItemId) return;
-    setCart(currentCart =>
-      currentCart.map(item =>
-        item.id === modifyingItemId ? { ...item, adicionais: [...(item.adicionais || []), adicional] } : item
-      )
-    );
-    setModifyingItemId(null);
-    setIsCartOpen(true);
-  }, [modifyingItemId]);
-  
+  const handleAddAdicionalToCart = useCallback(
+    (adicional: Adicional) => {
+      if (!modifyingItemId) return;
+      setCart((currentCart) =>
+        currentCart.map((item) =>
+          item.id === modifyingItemId
+            ? { ...item, adicionais: [...(item.adicionais || []), adicional] }
+            : item
+        )
+      );
+      setModifyingItemId(null);
+      setIsCartOpen(true);
+    },
+    [modifyingItemId]
+  );
+
   // 2. CRIE A FUNÇÃO DE NAVEGAÇÃO PARA O CHECKOUT
   const handleGoToCheckout = useCallback(() => {
     setIsCartOpen(false); // Fecha o carrinho
-    navigate('/checkout'); // Navega para a página de checkout
+    navigate("/checkout"); // Navega para a página de checkout
   }, [navigate]);
 
   return (
@@ -62,18 +72,33 @@ const AppContent: React.FC = () => {
           <Route path="/contato" element={<Contato />} />
           <Route
             path="/cardapio"
-            element={<Cardapio setCart={setCart} onOpenCart={() => setIsCartOpen(true)} modifyingItemId={modifyingItemId} onAddAdicional={handleAddAdicionalToCart}/>}
+            element={
+              <Cardapio
+                setCart={setCart}
+                onOpenCart={() => setIsCartOpen(true)}
+                modifyingItemId={modifyingItemId}
+                onAddAdicional={handleAddAdicionalToCart}
+              />
+            }
           />
           {/* 3. ADICIONE A ROTA PARA A PÁGINA DE CHECKOUT */}
-          <Route 
+          <Route
             path="/checkout"
-            element={<CheckoutPage cart={cart} setCart={setCart} onOrderSuccess={handleOrderSuccess} />}
+            element={
+              <CheckoutPage
+                cart={cart}
+                setCart={setCart}
+                onOrderSuccess={handleOrderSuccess}
+              />
+            }
           />
         </Routes>
         <WhatsAppCard />
       </main>
-      <footer className="p-4 bg-black text-center">© 2025 Caipirinha do DG</footer>
-      
+      <footer className="p-4 bg-black text-center">
+        © 2025 Caipirinha do DG
+      </footer>
+
       <CartSidebar
         cart={cart}
         setCart={setCart}
@@ -83,6 +108,7 @@ const AppContent: React.FC = () => {
         onGoToCheckout={handleGoToCheckout} // 4. PASSE A NOVA FUNÇÃO PARA O CARRINHO
       />
       <BaloesConfetes showParty={showParty} onPartyEnd={handlePartyEnd} />
+      
     </div>
   );
 };
