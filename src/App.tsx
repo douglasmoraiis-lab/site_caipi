@@ -20,7 +20,7 @@ const AppContent: React.FC = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showParty, setShowParty] = useState(false);
-  const [modifyingItemId, setModifyingItemId] = useState<string | null>(null);
+const [modifyingItemId, setModifyingItemId] = useState<string | number | null>(null);
   const navigate = useNavigate();
   const ListaProdutos: React.FC = () => <ListaProdutos />;
 
@@ -60,7 +60,7 @@ const AppContent: React.FC = () => {
   }, [navigate]);
 
   return (
-    <div className="bg-black text-gray-200 min-h-screen flex flex-col">
+   <div className="bg-gradient-to-b from-gray-100 to-gray-200 text-gray-900 min-h-screen flex flex-col">
       <Navbar
         onOpenCart={() => setIsCartOpen(true)}
         cartItemCount={cart.reduce((acc, item) => acc + item.quantidade, 0)}
