@@ -1,33 +1,18 @@
 // src/api/backend.ts
-export const API_BASE_URL = "http://localhost:3001"; // 🔹 Backend local
+export async function getCaipirinhas() {
+  const res = await fetch("http://localhost:3001/caipirinhas");
+  if (!res.ok) throw new Error("Erro ao buscar caipirinhas");
+  return res.json();
+}
 
-// Buscar produtos
-export const getProdutos = async () => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/produtos`);
-    if (!response.ok) {
-      throw new Error("Erro ao buscar produtos");
-    }
-    return await response.json();
-  } catch (error) {
-    console.error("Erro ao buscar produtos:", error);
-    return [];
-  }
-};
+export async function getBatidas() {
+  const res = await fetch("http://localhost:3001/batidas");
+  if (!res.ok) throw new Error("Erro ao buscar batidas");
+  return res.json();
+}
 
-// Enviar pedido
-export const enviarPedido = async (pedido: any) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/pedidos`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(pedido),
-    });
-
-    if (!response.ok) throw new Error("Erro ao enviar pedido");
-    return await response.json();
-  } catch (error) {
-    console.error("Erro ao enviar pedido:", error);
-    throw error;
-  }
-};
+export async function getAdicionais() {
+  const res = await fetch("http://localhost:3001/adicionais");
+  if (!res.ok) throw new Error("Erro ao buscar adicionais");
+  return res.json();
+}

@@ -1,0 +1,121 @@
+[
+  {
+    "id": 1,
+    "nome": "Adicional de Abacaxi",
+    "descricao": "Adicional de fruta",
+    "preco": 3.0,
+    "imagem": "/imagens/adicional_abacaxi.png",
+    "categoria": "Adicionais"
+  },
+  {
+    "id": 2,
+    "nome": "Adicional de Amora",
+    "descricao": "Adicional de fruta",
+    "preco": 3.0,
+    "imagem": "/imagens/adicional_amora.png",
+    "categoria": "Adicionais"
+  },
+  {
+    "id": 3,
+    "nome": "Adicional de Cachaça",
+    "descricao": "Dose extra de cachaça",
+    "preco": 4.0,
+    "imagem": "/imagens/adicional_cachaca.png",
+    "categoria": "Adicionais"
+  },
+  {
+    "id": 4,
+    "nome": "Adicional de Kiwi",
+    "descricao": "Adicional de fruta",
+    "preco": 3.0,
+    "imagem": "/imagens/adicional_kiwi.png",
+    "categoria": "Adicionais"
+  },
+  {
+    "id": 5,
+    "nome": "Adicional de Limão",
+    "descricao": "Adicional de fruta",
+    "preco": 3.0,
+    "imagem": "/imagens/adicional_limao.png",
+    "categoria": "Adicionais"
+  },
+  {
+    "id": 5,
+    "nome": "Adicional de Pêssego",
+    "descricao": "Adicional de fruta",
+    "preco": 3.0,
+    "imagem": "/imagens/adicional_pessego.png",
+    "categoria": "Adicionais"
+  },
+  {
+    "id": 5,
+    "nome": "Adicional de Manjericão",
+    "descricao": "Adicional de erva aromática",
+    "preco": 2.0,
+    "imagem": "/imagens/adicional_manjericao.png",
+    "categoria": "Adicionais"
+  }, {
+    "id": 6,
+    "nome": "Adicional de Abacaxi",
+    "descricao": "Pedaços de abacaxi fresco para complementar seu drink",
+    "preco": 5.0,
+    "imagem": "/imagens/adicional_abacaxi.png",
+    "categoria": "Adicionais"
+  },
+  {
+    "id": 7,
+    "nome": "Adicional de Amora",
+    "descricao": "Amoras frescas para adicionar um toque adocicado ao drink",
+    "preco": 5.0,
+    "imagem": "/imagens/adicional_amora.png",
+    "categoria": "Adicionais"
+  },
+  {
+    "id": 8,
+    "nome": "Adicional de Cachaça",
+    "descricao": "Dose extra de cachaça para deixar seu drink mais intenso",
+    "preco": 5.0,
+    "imagem": "/imagens/adicional_cachaca.png",
+    "categoria": "Adicionais"
+  },
+  {
+    "id": 9,
+    "nome": "Adicional de Kiwi",
+    "descricao": "Rodelas de kiwi para um toque tropical e leve",
+    "preco": 5.0,
+    "imagem": "/imagens/adicional_kiwi.png",
+    "categoria": "Adicionais"
+  },
+  {
+    "id": 10,
+    "nome": "Adicional de Limão",
+    "descricao": "Fatias de limão fresco para realçar o sabor",
+    "preco": 5.0,
+    "imagem": "/imagens/adicional_limao.png",
+    "categoria": "Adicionais"
+  },
+  {
+    "id": 11,
+    "nome": "Adicional de Morango",
+    "descricao": "Frutas frescas de morango para adicionar sabor ao drink",
+    "preco": 5.0,
+    "imagem": "/imagens/adicional_morango.png",
+    "categoria": "Adicionais"
+  },
+  {
+    "id": 12,
+    "nome": "Adicional de Pêssego",
+    "descricao": "Pedaços de pêssego maduro para um toque suave e frutado",
+    "preco": 5.0,
+    "imagem": "/imagens/adicional_pessego.png",
+    "categoria": "Adicionais"
+  },
+  {
+    "id": 13,
+    "nome": "Adicional de Manjericão",
+    "descricao": "Folhas frescas de manjericão para um aroma marcante",
+    "preco": 5.0,
+    "imagem": "/imagens/adicional_manjericao.png",
+    "categoria": "Adicionais"
+  }
+]

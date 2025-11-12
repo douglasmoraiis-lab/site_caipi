@@ -1,0 +1,195 @@
+[
+  {
+    "id": 1,
+    "nome": "Batida de Coco",
+    "descricao": "Leite condensado, coco e vodka",
+    "preco": 17.0,
+    "imagem": "/imagens/batidaCoco.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 2,
+    "nome": "Batida de Morango",
+    "descricao": "Morango, leite condensado e vodka",
+    "preco": 17.0,
+    "imagem": "/imagens/batida_morango.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 3,
+    "nome": "Batida de Morango com Leite Condensado",
+    "descricao": "Morango, leite condensado e vodka cremosa",
+    "preco": 18.0,
+    "imagem": "/imagens/batida_morango_conden.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 4,
+    "nome": "Batida de Maracujá",
+    "descricao": "Maracujá, leite condensado e vodka",
+    "preco": 17.0,
+    "imagem": "/imagens/batida_marac.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 5,
+    "nome": "Batida de Abacaxi",
+    "descricao": "Abacaxi, leite condensado e vodka",
+    "preco": 17.0,
+    "imagem": "/imagens/batida_abacaxi.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 6,
+    "nome": "Batida de Uva",
+    "descricao": "Uva, leite condensado e vodka",
+    "preco": 17.0,
+    "imagem": "/assets/batida_uva.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 7,
+    "nome": "Batida de Amendoim",
+    "descricao": "Amendoim, leite condensado e vodka",
+    "preco": 18.0,
+    "imagem": "/imagens/batida_amendo.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 8,
+    "nome": "Batida de Banana com Açaí",
+    "descricao": "Banana, açaí e vodka",
+    "preco": 18.0,
+    "imagem": "/imagens/batida_bana_acai.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 9,
+    "nome": "Batida de Chocolate",
+    "descricao": "Chocolate, leite condensado e vodka",
+    "preco": 18.0,
+    "imagem": "/imagens/batida_choco.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 10,
+    "nome": "Batida de Laranja",
+    "descricao": "Laranja, leite condensado e vodka",
+    "preco": 17.0,
+    "imagem": "/imagens/batida_laranj.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 11,
+    "nome": "Batida de Maracujá com Leite",
+    "descricao": "Maracujá, leite condensado e vodka cremosa",
+    "preco": 18.0,
+    "imagem": "/imagens/batida_marac_leit.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 14,
+    "nome": "Batida de Abacaxi",
+    "descricao": "Leite condensado, abacaxi e vodka",
+    "preco": 17.0,
+    "imagem": "/imagens/batida_abacaxi.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 12,
+    "nome": "Batida de Açaí com Hortelã",
+    "descricao": "Açaí, hortelã e vodka",
+    "preco": 18.0,
+    "imagem": "/imagens/batidaAba_Hote.png",
+    "categoria": "Batidas"
+  },
+
+  {
+    "id": 15,
+    "nome": "Batida de Amendoim",
+    "descricao": "Leite condensado, amendoim e vodka",
+    "preco": 17.0,
+    "imagem": "/imagens/batida_amendoim.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 16,
+    "nome": "Batida de Banana com Catuaba",
+    "descricao": "Leite condensado, banana e toque de catuaba",
+    "preco": 17.0,
+    "imagem": "/imagens/batida_bana-cast.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 17,
+    "nome": "Batida de Chocolate",
+    "descricao": "Leite condensado, cacau e vodka",
+    "preco": 17.0,
+    "imagem": "/imagens/batida_choco.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 18,
+    "nome": "Batida de Laranja",
+    "descricao": "Leite condensado, laranja e vodka",
+    "preco": 17.0,
+    "imagem": "/imagens/batida_laranja.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 19,
+    "nome": "Batida de Maracujá com Leite em Pó",
+    "descricao": "Leite condensado, maracujá e leite em pó",
+    "preco": 17.0,
+    "imagem": "/imagens/batida_maracjet.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 20,
+    "nome": "Batida de Morango",
+    "descricao": "Leite condensado, morango e vodka",
+    "preco": 17.0,
+    "imagem": "/imagens/batida_morango.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 21,
+    "nome": "Batida de Morango com Leite Condensado",
+    "descricao": "Morango batido com leite condensado e vodka",
+    "preco": 17.0,
+    "imagem": "/imagens/batida_morango-conden.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 22,
+    "nome": "Batida de Uva",
+    "descricao": "Leite condensado, uva e vodka",
+    "preco": 17.0,
+    "imagem": "/imagens/batida_uva.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 23,
+    "nome": "Batida de Abacaxi com Hortelã",
+    "descricao": "Leite condensado, abacaxi, hortelã e vodka",
+    "preco": 17.0,
+    "imagem": "/imagens/batida_aba-horte.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 24,
+    "nome": "Batida de Coco",
+    "descricao": "Leite condensado, coco e vodka",
+    "preco": 17.0,
+    "imagem": "/imagens/batida_coco.png",
+    "categoria": "Batidas"
+  },
+  {
+    "id": 25,
+    "nome": "Batida de Morango com Catuaba",
+    "descricao": "Leite condensado, morango e toque de catuaba",
+    "preco": 17.0,
+    "imagem": "/imagens/batida_morac.png",
+    "categoria": "Batidas"
+  }
+]

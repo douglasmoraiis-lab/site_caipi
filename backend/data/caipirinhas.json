@@ -1,0 +1,259 @@
+[
+  {
+    "id": 1,
+    "nome": "Caipirinha Tradicional",
+    "descricao": "Cachaça, limão e açúcar",
+    "preco": 15.0,
+    "imagem": "/imagens/tradicional.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 2,
+    "nome": "Caipirinha de Limão com Manjericão",
+    "descricao": "Cachaça, limão, manjericão e açúcar",
+    "preco": 16.0,
+    "imagem": "/imagens/caipi_L_M.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 3,
+    "nome": "Caipirinha de Morango",
+    "descricao": "Cachaça, morango e açúcar",
+    "preco": 16.0,
+    "imagem": "/imagens/caipi_morango.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 4,
+    "nome": "Caipirinha de Kiwi",
+    "descricao": "Cachaça, kiwi e açúcar",
+    "preco": 16.0,
+    "imagem": "/imagens/caipi_kiwi.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 5,
+    "nome": "Caipirinha de Framboesa",
+    "descricao": "Cachaça, framboesa e açúcar",
+    "preco": 17.0,
+    "imagem": "/imagens/caipi_framboesa.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 6,
+    "nome": "Caipirinha de Maracujá",
+    "descricao": "Cachaça, maracujá e açúcar",
+    "preco": 16.0,
+    "imagem": "/imagens/caipi_maracuja.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 7,
+    "nome": "Caipirinha de Pêssego",
+    "descricao": "Cachaça, pêssego e açúcar",
+    "preco": 16.0,
+    "imagem": "/imagens/caipi_pessego.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 8,
+    "nome": "Caipirinha de Uva",
+    "descricao": "Cachaça, uva e açúcar",
+    "preco": 16.0,
+    "imagem": "/imagens/caipi_uva.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 9,
+    "nome": "Caipirinha de Abacaxi",
+    "descricao": "Cachaça, abacaxi e açúcar",
+    "preco": 16.0,
+    "imagem": "/imagens/caipi_abacaxi.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 10,
+    "nome": "Caipirinha de Amora",
+    "descricao": "Cachaça, amora e açúcar",
+    "preco": 17.0,
+    "imagem": "/imagens/caipi_amora.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 11,
+    "nome": "Caipirinha de Caju",
+    "descricao": "Cachaça, caju e açúcar",
+    "preco": 16.0,
+    "imagem": "/imagens/caipi_caju.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 11,
+    "nome": "Caipirinha de Caju",
+    "descricao": "Cachaça, caju e açúcar",
+    "preco": 16.0,
+    "imagem": "/imagens/caipi_caju.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 12,
+    "nome": "Caipirinha de Abacaxi",
+    "descricao": "Cachaça, abacaxi e açúcar",
+    "preco": 16.0,
+    "imagem": "/imagens/caipi_abacaxi.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 13,
+    "nome": "Caipirinha de Morango",
+    "descricao": "Cachaça, morango e açúcar",
+    "preco": 16.0,
+    "imagem": "/imagens/caipi_morango.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 14,
+    "nome": "Caipirinha de Framboesa",
+    "descricao": "Cachaça, framboesa e açúcar",
+    "preco": 16.0,
+    "imagem": "/imagens/caipi_framboesa.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 15,
+    "nome": "Caipirinha de Kiwi",
+    "descricao": "Cachaça, kiwi e açúcar",
+    "preco": 16.0,
+    "imagem": "/imagens/caipi_kiw.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 16,
+    "nome": "Caipirinha de Limão com Manjericão",
+    "descricao": "Cachaça, limão, manjericão e açúcar",
+    "preco": 16.0,
+    "imagem": "/imagens/caipi_limao-manjericao.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 17,
+    "nome": "Caipirinha de Manga",
+    "descricao": "Cachaça, manga e açúcar",
+    "preco": 16.0,
+    "imagem": "/imagens/caipi_manga.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 18,
+    "nome": "Caipirinha de Maracujá",
+    "descricao": "Cachaça, maracujá e açúcar",
+    "preco": 16.0,
+    "imagem": "/imagens/caipi_maracuja.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 19,
+    "nome": "Caipirinha de Pêssego",
+    "descricao": "Cachaça, pêssego e açúcar",
+    "preco": 16.0,
+    "imagem": "/imagens/caipi_pessego.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 20,
+    "nome": "Caipirinha de Uva",
+    "descricao": "Cachaça, uva e açúcar",
+    "preco": 16.0,
+    "imagem": "/imagens/caipi_uva.png",
+    "categoria": "Caipirinhas"
+    
+  },
+  {
+    "id": 26,
+    "nome": "Caipirinha de Abacaxi",
+    "descricao": "Cachaça, abacaxi e açúcar",
+    "preco": 15.0,
+    "imagem": "/imagens/caipi_abacaxi.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 27,
+    "nome": "Caipirinha de Amora",
+    "descricao": "Cachaça, amora e açúcar",
+    "preco": 15.0,
+    "imagem": "/imagens/caipi_amora.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 28,
+    "nome": "Caipirinha de Cajá",
+    "descricao": "Cachaça, cajá e açúcar",
+    "preco": 15.0,
+    "imagem": "/imagens/caipi_cajup.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 29,
+    "nome": "Caipirinha de Framboesa",
+    "descricao": "Cachaça, framboesa e açúcar",
+    "preco": 15.0,
+    "imagem": "/imagens/caipi_framboesa.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 30,
+    "nome": "Caipirinha de Kiwi",
+    "descricao": "Cachaça, kiwi e açúcar",
+    "preco": 15.0,
+    "imagem": "/imagens/caipi_kiwi.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 31,
+    "nome": "Caipirinha de Limão com Manjericão",
+    "descricao": "Cachaça, limão, manjericão e açúcar",
+    "preco": 15.0,
+    "imagem": "/imagens/caipi_limao-manjericao.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 32,
+    "nome": "Caipirinha de Manga",
+    "descricao": "Cachaça, manga e açúcar",
+    "preco": 15.0,
+    "imagem": "/imagens/caipi_manga.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 33,
+    "nome": "Caipirinha de Maracujá",
+    "descricao": "Cachaça, maracujá e açúcar",
+    "preco": 15.0,
+    "imagem": "/imagens/caipi_maracuja.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 34,
+    "nome": "Caipirinha de Morango",
+    "descricao": "Cachaça, morango e açúcar",
+    "preco": 15.0,
+    "imagem": "/imagens/caipi_morango.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 35,
+    "nome": "Caipirinha de Pêssego",
+    "descricao": "Cachaça, pêssego e açúcar",
+    "preco": 15.0,
+    "imagem": "/imagens/caipi_pessego.png",
+    "categoria": "Caipirinhas"
+  },
+  {
+    "id": 36,
+    "nome": "Caipirinha de Uva",
+    "descricao": "Cachaça, uva e açúcar",
+    "preco": 15.0,
+    "imagem": "/imagens/caipi_uva.png",
+    "categoria": "Caipirinhas"
+  }
+]

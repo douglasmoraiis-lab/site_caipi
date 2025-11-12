@@ -1,38 +1,45 @@
-// backend/server.js
 import express from "express";
 import cors from "cors";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
-const app = express();
-const PORT = 3001;
-
-app.use(cors());
-app.use(express.json());
-
-// Caminho absoluto
+// Corrige __dirname para ES Modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const produtosPath = path.resolve(__dirname, "data", "produtos.json");
 
-// ✅ Rota principal (teste rápido)
-app.get("/", (req, res) => {
-  res.send("🚀 Servidor backend ativo e rodando!");
+const app = express();
+
+// ✅ Habilita CORS para o frontend (Vite)
+app.use(cors({
+  origin: "http://localhost:5173",
+  methods: ["GET"],
+  allowedHeaders: ["Content-Type"],
+}));
+
+app.use(express.json());
+
+// ✅ Caminhos corretos (usa path.resolve para não quebrar)
+const dataDir = path.resolve(__dirname, "data");
+const caipirinhasPath = path.join(dataDir, "caipirinhas.json");
+const batidasPath = path.join(dataDir, "batidas.json");
+const adicionaisPath = path.join(dataDir, "adicionais.json");
+
+app.get("/caipirinhas", (req, res) => {
+  const data = JSON.parse(fs.readFileSync(caipirinhasPath, "utf-8"));
+  res.json(data);
 });
 
-// ✅ Rota de produtos
-app.get("/produtos", (req, res) => {
-  try {
-    const data = fs.readFileSync(produtosPath, "utf-8");
-    const produtos = JSON.parse(data);
-    res.json(produtos);
-  } catch (error) {
-    console.error("❌ Erro ao ler produtos.json:", error);
-    res.status(500).json({ error: "Erro ao ler produtos" });
-  }
+app.get("/batidas", (req, res) => {
+  const data = JSON.parse(fs.readFileSync(batidasPath, "utf-8"));
+  res.json(data);
 });
 
-app.listen(PORT, () => {
-  console.log(`✅ Servidor rodando em http://localhost:${PORT}`);
+app.get("/adicionais", (req, res) => {
+  const data = JSON.parse(fs.readFileSync(adicionaisPath, "utf-8"));
+  res.json(data);
+});
+
+app.listen(3001, () => {
+  console.log("✅ Backend rodando em http://localhost:3001");
 });
