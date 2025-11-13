@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { getProdutos } from "../api/backend";
 
 interface Produto {
   id: number;
@@ -14,7 +13,10 @@ const ListaProdutos: React.FC = () => {
   const [produtos, setProdutos] = useState<Produto[]>([]);
 
   useEffect(() => {
-    getProdutos().then(setProdutos).catch(console.error);
+    fetch("/data/batidas.json")
+      .then((response) => response.json())
+      .then(setProdutos)
+      .catch(console.error);
   }, []);
 
   return (
